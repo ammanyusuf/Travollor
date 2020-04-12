@@ -7,6 +7,9 @@ using System.Configuration;
 using System.Data;
 using System.Web;
 
+using System.Data;
+using MySql.Data.MySqlClient;
+
 namespace ProjectTemp.Helpers
 {
     public class DatabaseModel
