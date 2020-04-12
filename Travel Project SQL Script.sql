@@ -2,7 +2,15 @@
 # Date: 4/8/2020
 
 # Skip this step if you have already created this table
-CREATE SCHEMA `travellors` ;
+#CREATE SCHEMA `travellors` ;
+
+# Enter these commands at the MYSQL Command Line Client
+
+# if you already created a user for any of your databases, skip this command
+create user 'admin1'@'localhost' identified by 'password';
+
+# If you have dropped this schema (travellors), execute this command again
+grant all on travellors.* to 'admin1'@'localhost';
 
 # Creating city table
 CREATE TABLE `travellors`.`city` (
@@ -15,7 +23,7 @@ CREATE TABLE `travellors`.`city` (
   PRIMARY KEY (`city_id`));
   
 # Creating attraction table
-# --- Note: have to add fk to business_license_number
+# added constraints for ATTRACTION table at the bottom
 CREATE TABLE `travellors`.`attraction` (
   `attraction_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
@@ -23,9 +31,26 @@ CREATE TABLE `travellors`.`attraction` (
   `attraction_description` VARCHAR(300) NOT NULL,
   `city_id` INT NOT NULL,
   `business_license_number` INT NOT NULL,
-  PRIMARY KEY (`attraction_id`),
-  INDEX `city_id_idx` (`city_id` ASC) INVISIBLE,
-  CONSTRAINT `city_id`
+  PRIMARY KEY (`attraction_id`)
+);
+ 
+# Creating 'Local Business' Entity
+# Completed Foreign Keys
+CREATE TABLE `travellors`.`local_business` (
+  `business_license_number` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  `address` VARCHAR(200) NOT NULL,
+  `user_personal_information` VARCHAR(150) NOT NULL,
+  `attraction_id` INT NOT NULL,
+  `city_id` INT NOT NULL,
+  PRIMARY KEY (`business_license_number`),
+  INDEX `city_id_idx` (`city_id` ASC) VISIBLE,
+  CONSTRAINT `attraction_id_fk7`
+    FOREIGN KEY (`attraction_id`)
+    REFERENCES `travellors`.`attraction` (`attraction_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `city_id_fk2`
     FOREIGN KEY (`city_id`)
     REFERENCES `travellors`.`city` (`city_id`)
     ON DELETE CASCADE
@@ -96,28 +121,6 @@ CREATE TABLE `travellors`.`other` (
     REFERENCES `travellors`.`attraction` (`attraction_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
- 
-# Creating 'Local Business' Entity
-# Completed Foreign Keys
-CREATE TABLE `travellors`.`local_business` (
-  `business_license_number` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(100) NOT NULL,
-  `address` VARCHAR(200) NOT NULL,
-  `user_personal_information` VARCHAR(150) NOT NULL,
-  `attraction_id` INT NOT NULL,
-  `city_id` INT NOT NULL,
-  PRIMARY KEY (`business_license_number`),
-  INDEX `city_id_idx` (`city_id` ASC) VISIBLE,
-  CONSTRAINT `attraction_id_fk7`
-    FOREIGN KEY (`attraction_id`)
-    REFERENCES `travellors`.`attraction` (`attraction_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `city_id_fk2`
-    FOREIGN KEY (`city_id`)
-    REFERENCES `travellors`.`city` (`city_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE);
 
 # Creating 'Tour Guide' Entity
 # Certification example: 743-VXT-345
@@ -140,6 +143,96 @@ CREATE TABLE `travellors`.`tour_guide` (
     REFERENCES `travellors`.`city` (`city_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
+    
+# New tables
+CREATE TABLE `travellors`.`admin` (
+  `admin_id` INT NOT NULL,
+  `first_name` VARCHAR(255) NULL,
+  `last_name` VARCHAR(255) NULL,
+  PRIMARY KEY (`admin_id`));
+  
+  # Foreign key for admin_id missing
+CREATE TABLE `travellors`.`user` (
+  `user_id` INT NOT NULL,
+  `email_id` VARCHAR(255) NULL,
+  `first_name` VARCHAR(255) NULL,
+  `last_name` VARCHAR(255) NULL,
+  `admin_id` INT NULL,
+  PRIMARY KEY (`user_id`));
+  
+CREATE TABLE `travellors`.`local` (
+  `user_id` INT NOT NULL,
+  `rating` INT NULL,
+  `num_of_recommendations` INT NULL,
+  `city_id` INT NULL,
+  `super_local_flag` INT NULL,
+  `super_local_uid` INT NULL,
+  `good_recommendations` VARCHAR(255) NULL);
+  
+CREATE TABLE `travellors`.`tourist` (
+  `user_id` INT NOT NULL,
+  `nationality` VARCHAR(45) NULL,
+  `city_id` INT NULL,
+  PRIMARY KEY (`user_id`));
+  
+CREATE TABLE `travellors`.`transportation` (
+  `transportation_id` INT NOT NULL,
+  `transport_type` VARCHAR(255) NULL,
+  `fare` INT NULL);
+  
+CREATE TABLE `travellors`.`recommendation` (
+  `title` VARCHAR(255) NOT NULL,
+  `creation_date` DATE NULL,
+  `posting_time` TIME NULL,
+  `post_rating` INT NULL,
+  `tips` VARCHAR(255) NULL,
+  `description` VARCHAR(255) NULL,
+  `personal_information` VARCHAR(255) NULL,
+  `attraction_id` INT NULL,
+  `city_id` INT NULL,
+  `local_uid` INT NULL,
+  `tour_guide_uid` INT NULL,
+  `tourist_id` INT NULL,
+  PRIMARY KEY (`title`));
+  
+CREATE TABLE `travellors`.`visit` (
+  `attraction_id` INT NOT NULL,
+  `tourist_uid` INT NOT NULL, # changed to NOT NULL
+  PRIMARY KEY (`attraction_id`, `tourist_uid`));
+
+# Add FK Constraints
+ALTER TABLE `travellors`.`visit` 
+;
+ALTER TABLE `travellors`.`visit` 
+ADD CONSTRAINT `attraction_id_fk20`
+  FOREIGN KEY (`attraction_id`)
+  REFERENCES `travellors`.`attraction` (`attraction_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `tourist_uid_fk20`
+  FOREIGN KEY (`tourist_uid`)
+  REFERENCES `travellors`.`tourist` (`user_id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+CREATE TABLE `travellors`.`rides_on` (
+  `transport_uid` INT NOT NULL,
+  `tourist_uid` INT NOT NULL,
+  `departure_address` VARCHAR(255) NULL,
+  `distance_travelled` INT NULL,
+  `destination_address` VARCHAR(255) NULL,
+  PRIMARY KEY (`transport_uid`, `tourist_uid`));
+  
+  CREATE TABLE `travellors`.`identification` (
+  `local_uid` INT NOT NULL,
+  `type_of_identification` VARCHAR(255) NULL,
+  `identification_file` VARCHAR(255) NULL,
+  PRIMARY KEY (`local_uid`));
+  
+  CREATE TABLE `travellors`.`places_travelled` (
+  `tourist_uid` INT NOT NULL,
+  `Name_of_place_travelled` VARCHAR(255) NULL,
+  PRIMARY KEY (`tourist_uid`));
   
 # Creating 'Provides_deals' relationship table
 # Note: total relationship for tourist so cannot be null. mmm if PK both must be not null
@@ -148,17 +241,16 @@ CREATE TABLE `travellors`.`provides_deals` (
 	`business_license_number` INT NOT NULL,
 	`tourist_uid` INT NOT NULL,
 	PRIMARY KEY (`business_license_number`, `tourist_uid`),
-    CONSTRAINT `business_license_number_fk1` 
+    CONSTRAINT `business_license_number_fk9` 
 		FOREIGN KEY (`business_license_number`)
         REFERENCES `travellors`.`local_business` (`business_license_number`)
 		ON DELETE CASCADE
-		ON UPDATE CASCADE
-    
-    #CONSTRAINT `business_license_number_fk1` 
-	#	FOREIGN KEY (`tourist_uid`)
-    #   REFERENCES `travellors`.`tourist` (`user_id`)
-	#	ON DELETE CASCADE
-	#	ON UPDATE CASCADE 
+		ON UPDATE CASCADE,
+    CONSTRAINT `business_license_number_fk10` 
+		FOREIGN KEY (`tourist_uid`)
+        REFERENCES `travellors`.`tourist` (`user_id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE 
     );
 
 # Creating 'Book' relationship table
@@ -173,34 +265,30 @@ CREATE TABLE `travellors`.`book` (
 		FOREIGN KEY (`tour_guide_id`)
         REFERENCES `travellors`.`tour_guide` (`tour_guide_id`)
 		ON DELETE CASCADE
-		ON UPDATE CASCADE
-    
-    #CONSTRAINT `tourist_uid_fk1` 
-	#	FOREIGN KEY (`tourist_uid`)
-    #   REFERENCES `travellors`.`tourist` (`user_id`)
-	#	ON DELETE CASCADE
-	#	ON UPDATE CASCADE 
+		ON UPDATE CASCADE,
+    CONSTRAINT `tourist_uid_fk1` 
+		FOREIGN KEY (`tourist_uid`)
+       REFERENCES `travellors`.`tourist` (`user_id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE 
 );
 
 # Creating 'Rate' relationship table
-# Local and tourist table need to be created first...
-# Not implemented yet >>> ****** <<<<<<
 
-CREATE TABLE `travellors`.`book` (
-#	`local_uid` INT NOT NULL,
-#    `rater_uid` INT NOT NULL,
-#    PRIMARY KEY (`local_uid`, `rater_uid`),
-#    CONSTRAINT `local_uid_fk1` 
-#		FOREIGN KEY (`local_uid`)
-#        REFERENCES `travellors`.`local` (`user_id`)
-#		ON DELETE CASCADE
-#		ON UPDATE CASCADE
-    
-    #CONSTRAINT `rater_uid_fk1` 
-	#	FOREIGN KEY (`rater_uid`)
-    #   REFERENCES `travellors`.`local` (`user_id`)
-	#	ON DELETE CASCADE
-	#	ON UPDATE CASCADE 
+CREATE TABLE `travellors`.`rate` (
+	`local_uid` INT NOT NULL,
+    `rater_uid` INT NOT NULL,
+    PRIMARY KEY (`local_uid`, `rater_uid`),
+    CONSTRAINT `local_uid_fk1` 
+		FOREIGN KEY (`local_uid`)
+        REFERENCES `travellors`.`local` (`user_id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+    CONSTRAINT `rater_uid_fk1` 
+		FOREIGN KEY (`rater_uid`)
+       REFERENCES `travellors`.`local` (`user_id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE 
 );
     
 # Creating 'Travels_to' relationship
@@ -222,6 +310,23 @@ CREATE TABLE `travellors`.`travels_to` (
     REFERENCES `travellors`.`attraction` (`attraction_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
+    
+#  ------  Adding constraints to tables -----------
 
+# Adding constraints for ATTRACTION TABLE
+ALTER TABLE `travellors`.`attraction` 
+ADD INDEX `city_id_idx` (`city_id` ASC) VISIBLE;
+;
+ALTER TABLE `travellors`.`attraction` 
+ADD CONSTRAINT `city_id`
+  FOREIGN KEY (`city_id`)
+  REFERENCES `travellors`.`city` (`city_id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `business_license_number_fk2`
+    FOREIGN KEY (`business_license_number`)
+    REFERENCES `travellors`.`local_business` (`business_license_number`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 
