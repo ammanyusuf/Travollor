@@ -13,7 +13,7 @@ CREATE TABLE `travellors`.`recommendation` (
   `tour_guide_uid` INT NULL,
   `tourist_id` INT NULL,
   PRIMARY KEY (`title`));
-
+#changes
 ALTER TABLE `travellors`.`recommendation` 
 ADD CONSTRAINT `attraction_id_fk9`
   FOREIGN KEY (`attraction_id`)
@@ -46,6 +46,9 @@ ADD CONSTRAINT `local_uid_fk20`
   `transportation_id` INT NOT NULL,
   `transport_type` VARCHAR(255) NULL,
   `fare` INT NULL);
+  ALTER TABLE `travellors`.`transportation` 
+ADD PRIMARY KEY (`transportation_id`);
+
   
   CREATE TABLE `travellors`.`admin` (
   `admin_id` INT NOT NULL,
@@ -90,6 +93,7 @@ ADD CONSTRAINT `user_id`
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
   
+  
   CREATE TABLE `travellors`.`tourist` (
   `user_id` INT NOT NULL,
   `nationality` VARCHAR(45) NULL,
@@ -106,10 +110,7 @@ ADD CONSTRAINT `user_id_fk1`
   ON UPDATE NO ACTION;
   
   
-CREATE TABLE `travellors`.`visit` (
-  `attraction_id` INT NOT NULL,
-  `tourist_uid` INT NOT NULL,
-  PRIMARY KEY (`attraction_id`, `tourist_uid`));
+
   
   
 
@@ -122,6 +123,13 @@ CREATE TABLE `travellors`.`rides_on` (
   `distance_travelled` INT NULL,
   `destination_address` VARCHAR(255) NULL,
   PRIMARY KEY (`transportation_id`, `tourist_uid`));
+  ALTER TABLE `travellors`.`rides_on` 
+  ADD CONSTRAINT `transportation_id`
+  FOREIGN KEY (`transportation_id`)
+  REFERENCES `travellors`.`transportation` (`transportation_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
   
 
   
@@ -132,14 +140,20 @@ CREATE TABLE `travellors`.`rides_on` (
   `type_of_identification` VARCHAR(255) NULL,
   `identification_file` VARCHAR(255) NULL,
   PRIMARY KEY (`local_uid`));
+  ALTER TABLE `travellors`.`identification` 
+  ADD CONSTRAINT `local_uid`
+  FOREIGN KEY (`local_uid`)
+  REFERENCES `travellors`.`local` (`user_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
   
   CREATE TABLE `travellors`.`places_travelled` (
   `tourist_uid` INT NOT NULL,
   `Name_of_place_travelled` VARCHAR(255) NULL,
   PRIMARY KEY (`tourist_uid`));
   #changes
-  ALTER TABLE `travellors`.`places_travelled` 
-ADD CONSTRAINT `tourist_id_fk20`
+ALTER TABLE `travellors`.`places_travelled` 
+ADD CONSTRAINT `tourist_uid`
   FOREIGN KEY (`tourist_uid`)
   REFERENCES `travellors`.`tourist` (`user_id`)
   ON DELETE NO ACTION
@@ -157,7 +171,6 @@ CREATE TABLE `travellors`.`attraction` (
   `city_id` INT NOT NULL,
   `business_license_number` INT NOT NULL,
   PRIMARY KEY (`attraction_id`),
-  INDEX `city_id_idx` (`city_id` ASC) INVISIBLE,
   CONSTRAINT `city_id`
     FOREIGN KEY (`city_id`)
     REFERENCES `travellors`.`city` (`city_id`)
