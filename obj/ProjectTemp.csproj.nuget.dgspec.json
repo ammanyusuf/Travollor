@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\amman\\Documents\\winter2020\\CPSC 471\\ProjectTemp\\ProjectTemp.csproj": {}
+    "C:\\Users\\amman\\GitProjects\\winter2020\\Travollor\\ProjectTemp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\amman\\Documents\\winter2020\\CPSC 471\\ProjectTemp\\ProjectTemp.csproj": {
+    "C:\\Users\\amman\\GitProjects\\winter2020\\Travollor\\ProjectTemp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\amman\\Documents\\winter2020\\CPSC 471\\ProjectTemp\\ProjectTemp.csproj",
+        "projectUniqueName": "C:\\Users\\amman\\GitProjects\\winter2020\\Travollor\\ProjectTemp.csproj",
         "projectName": "ProjectTemp",
-        "projectPath": "C:\\Users\\amman\\Documents\\winter2020\\CPSC 471\\ProjectTemp\\ProjectTemp.csproj",
+        "projectPath": "C:\\Users\\amman\\GitProjects\\winter2020\\Travollor\\ProjectTemp.csproj",
         "packagesPath": "C:\\Users\\amman\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\amman\\Documents\\winter2020\\CPSC 471\\ProjectTemp\\obj\\",
+        "outputPath": "C:\\Users\\amman\\GitProjects\\winter2020\\Travollor\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -58,6 +58,18 @@
               "target": "Package",
               "version": "[2.1.0, )",
               "autoReferenced": true
+            },
+            "System.Configuration.ConfigurationManager": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "System.Management": {
+              "target": "Package",
+              "version": "[4.7.0, )"
             }
           },
           "imports": [
