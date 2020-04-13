@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Data;
 using System.Web;
 
-using System.Data;
 using MySql.Data.MySqlClient;
+using MySql.Data.Types;
 
 namespace ProjectTemp.Helpers
 {
@@ -16,27 +15,24 @@ namespace ProjectTemp.Helpers
     {
 
         #region Query Methods
-
+        /*
         public MySqlConnection GetMySQLConnection(string connectionstring)
         {
             if (connectionstring == null)
                 return null;
             return new MySqlConnection(connectionstring);
-        }
+        }*/
 
         public string Get_PuBConnectionString()
         {
-            try
-            {
-                return "server=localhost;port=3306;database=travellors;user=admin1;password=password";
-            }
-            catch { return null; }
-        }
+            return "server=localhost;port=3306;database=example;user=admin1;password=password;check parameters=false";
 
         public MySqlConnection GetMySQLConnection()
         {
             if (Get_PuBConnectionString() == null)
+            {
                 return null;
+            }
             return new MySqlConnection(Get_PuBConnectionString());
         }
 
@@ -118,15 +114,32 @@ namespace ProjectTemp.Helpers
             if (GetMySQLConnection() == null)
                 return null;
 
+            MySqlConnection connection = GetMySQLConnection();
+            MySqlDataReader reader = null;
+            connection.Open();
+
             DataTable dataTable = new DataTable();
-            MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(procedureName, GetMySQLConnection());
-            mySqlDataAdapter.SelectCommand.CommandType = CommandType.StoredProcedure;
+            /*
+            MySqlCommand command = new MySqlCommand("GetPeople", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            MySqlDataReader reader = command.ExecuteReader();
+            */
+            MySqlCommand myCommand = new MySqlCommand(procedureName);
+            myCommand.Connection = connection;
+            myCommand.CommandType = CommandType.StoredProcedure;
+
+            reader = myCommand.ExecuteReader();
+
+            dataTable.Load(reader);
+
+            /*MySqlDataAdapter adapter = new MySqlDataAdapter(procedureName, GetMySQLConnection());
+            adapter.SelectCommand.CommandType = CommandType.StoredProcedure;
 
             try
             {
-                mySqlDataAdapter.SelectCommand.Parameters.AddRange(parameters);
-                mySqlDataAdapter.SelectCommand.Connection.Open();
-                mySqlDataAdapter.Fill(dataTable);
+                adapter.SelectCommand.Parameters.AddRange(parameters);
+                adapter.SelectCommand.Connection.Open();
+                adapter.Fill(dataTable);
             }
             catch (Exception er)
             {
@@ -134,9 +147,10 @@ namespace ProjectTemp.Helpers
                 dataTable = null;
             }
 
-            if (mySqlDataAdapter.SelectCommand.Connection != null && mySqlDataAdapter.SelectCommand.Connection.State == ConnectionState.Open)
-                mySqlDataAdapter.SelectCommand.Connection.Close();
-
+            if (adapter.SelectCommand.Connection != null && adapter.SelectCommand.Connection.State == ConnectionState.Open)
+                adapter.SelectCommand.Connection.Close();
+                */
+            connection.Close();
             return dataTable;
         }
 
@@ -198,7 +212,7 @@ namespace ProjectTemp.Helpers
         #endregion
 
         #region Examples
-        public int updateEmployee(int empId,string empName, DateTime embBDate,string empAddress)
+        public int updateEmployee(int empId, string empName, DateTime embBDate, string empAddress)
         {
 
 
@@ -212,18 +226,17 @@ namespace ProjectTemp.Helpers
         }
 
 
-        public int insertEmployee( string empName, DateTime embBDate, string empAddress)
+        public int insertPerson(string firstName, string lastName)
         {
             MySqlParameter[] Parameters = new MySqlParameter[3];
-            Parameters[0] = new MySqlParameter("@empName", empName);
-            Parameters[1] = new MySqlParameter("@embBDate", embBDate);
-            Parameters[2] = new MySqlParameter("@empAddress", empAddress);
+            Parameters[0] = new MySqlParameter("@firstName", firstName);
+            Parameters[1] = new MySqlParameter("@lastName", lastName);
 
-            Parameters[2] = new MySqlParameter("@empId", MySqlDbType.Int64);
+            Parameters[2] = new MySqlParameter("@pId", SqlDbType.Int);
             Parameters[2].Direction = ParameterDirection.Output;
 
 
-            return Execute_Non_Query_Store_Procedure("SP_InsertEmpInfo", Parameters, "empId");
+            return Execute_Non_Query_Store_Procedure("AddPerson", Parameters, "pId");
         }
 
 
@@ -232,9 +245,17 @@ namespace ProjectTemp.Helpers
             MySqlParameter[] Parameters = new MySqlParameter[0];
 
 
-            return Execute_Data_Query_Store_Procedure("SP_GetEmpsInfo", Parameters);
+            return Execute_Data_Query_Store_Procedure("GetPeople", Parameters);
 
 
+        }
+
+        public int updateSalaries()
+        {
+            MySqlParameter[] Parameters = new MySqlParameter[0];
+
+
+            return Execute_Non_Query_Store_Procedure("UpdateSalary", Parameters);
         }
 
         #endregion
