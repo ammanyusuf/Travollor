@@ -27,6 +27,8 @@ namespace ProjectTemp.Helpers
         {
             return "server=localhost;port=3306;database=example;user=admin1;password=password;check parameters=false";
 
+        }
+
         public MySqlConnection GetMySQLConnection()
         {
             if (Get_PuBConnectionString() == null)
