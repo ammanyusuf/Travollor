@@ -173,7 +173,7 @@ ADD CONSTRAINT `admi_id_user`
   `city_id` INT NULL,
   `super_local_flag` INT NULL,
   `super_local_uid` INT NULL,
-  `good_recommendations` VARCHAR(255) NULL);
+  `good_recommendations` INT NULL);
   #changes
 ALTER TABLE `travellors`.`local` 
 ADD CONSTRAINT `user_id_local`
@@ -185,6 +185,12 @@ ALTER TABLE `travellors`.`local`
 ADD CONSTRAINT `city_id_local`
   FOREIGN KEY (`city_id`)
   REFERENCES `travellors`.`city` (`city_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+ALTER TABLE `travellors`.`local` 
+ADD CONSTRAINT `super_local_uid_local`
+  FOREIGN KEY (`user_id`)
+  REFERENCES `travellors`.`user` (`user_id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
   
@@ -222,7 +228,7 @@ CREATE TABLE `travellors`.`recommendation` (
   `posting_time` TIME NULL,
   `post_rating` INT NULL,
   `tips` VARCHAR(255) NULL,
-  `description` VARCHAR(255) NULL,
+  `description` VARCHAR(10000) NULL,
   `personal_information` VARCHAR(255) NULL,
   `attraction_id` INT NULL,
   `city_id` INT NULL,
@@ -311,8 +317,8 @@ CREATE TABLE `travellors`.`rides_on` (
   
   CREATE TABLE `travellors`.`places_travelled` (
   `tourist_uid` INT NOT NULL,
-  `Name_of_place_travelled` VARCHAR(255) NULL,
-  PRIMARY KEY (`tourist_uid`),
+  `Name_of_place_travelled` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`tourist_uid`,`Name_of_place_travelled`),
   CONSTRAINT `tourist_uid_places_travelled`
 	  FOREIGN KEY (`tourist_uid`)
 	  REFERENCES `travellors`.`tourist` (`user_id`)

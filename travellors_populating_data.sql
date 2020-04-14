@@ -151,3 +151,222 @@ VALUES ("192-HGB-190","French","Frenchwoman",12,6,2);
 INSERT INTO travellors.tour_guide (certification,first_name,last_name,years_of_experience,attraction_id,city_id)
 VALUES ("283-BNM-782","Palmlad","Trees",19,7,2);
 
+# Add 10 users (5 locals and 5 tourists)
+# 5 Users
+INSERT INTO travellors.user (email_id,first_name,last_name,admin_id)
+VALUES ("someemail@gmail.com","Johny","Appleseed","1");
+
+INSERT INTO travellors.user (email_id,first_name,last_name,admin_id)
+VALUES ("coolCoolio@gmail.com","Sweet","Coolio","2");
+
+INSERT INTO travellors.user (email_id,first_name,last_name,admin_id)
+VALUES ("sammu@gmail.com","Samuel","Sammu","3");
+
+INSERT INTO travellors.user (email_id,first_name,last_name,admin_id)
+VALUES ("Lue@gmail.com","Lue","Baloo","1");
+
+INSERT INTO travellors.user (email_id,first_name,last_name,admin_id)
+VALUES ("gibbon@gmail.com","Gibbon","Troglodyte","2");
+
+# 5 Tourists
+INSERT INTO travellors.user (email_id,first_name,last_name,admin_id)
+VALUES ("lione@gmail.com","Lione","Messi","1");
+
+INSERT INTO travellors.user (email_id,first_name,last_name,admin_id)
+VALUES ("visiting@gmail.com","Visiting","Person","2");
+
+INSERT INTO travellors.user (email_id,first_name,last_name,admin_id)
+VALUES ("baboon@gmail.com","Bee","Fast","3");
+
+INSERT INTO travellors.user (email_id,first_name,last_name,admin_id)
+VALUES ("lone@gmail.com","Lone","Ranger","1");
+
+INSERT INTO travellors.user (email_id,first_name,last_name,admin_id)
+VALUES ("egg@gmail.com","Egg","AndCheese","2");
+
+# Add 5 Locals
+INSERT INTO travellors.local (user_id,rating,num_of_recommendations,city_id,super_local_flag,super_local_uid,good_recommendations)
+VALUES (1,7,10,2,1,null,15);
+
+INSERT INTO travellors.local (user_id,rating,num_of_recommendations,city_id,super_local_flag,super_local_uid,good_recommendations)
+VALUES (2,9,1,2,0,null,0);
+
+INSERT INTO travellors.local (user_id,rating,num_of_recommendations,city_id,super_local_flag,super_local_uid,good_recommendations)
+VALUES (3,10,112,2,1,1,10);
+
+INSERT INTO travellors.local (user_id,rating,num_of_recommendations,city_id,super_local_flag,super_local_uid,good_recommendations)
+VALUES (4,2,15,2,0,null,1);
+
+INSERT INTO travellors.local (user_id,rating,num_of_recommendations,city_id,super_local_flag,super_local_uid,good_recommendations)
+VALUES (5,6,20,2,0,null,20);
+
+# Add 5 tourists
+INSERT INTO travellors.tourist (user_id,nationality,city_id)
+VALUES (6,"French","4");
+
+INSERT INTO travellors.tourist (user_id,nationality,city_id)
+VALUES (7,"Italian","3");
+
+INSERT INTO travellors.tourist (user_id,nationality,city_id)
+VALUES (8,"Peruvian","7");
+
+INSERT INTO travellors.tourist (user_id,nationality,city_id)
+VALUES (9,"Canadian","1");
+
+INSERT INTO travellors.tourist (user_id,nationality,city_id)
+VALUES (10,"Canadian","6");
+
+# Add values for transportation
+INSERT INTO travellors.transportation(transport_type,fare)
+VALUES ('Subway',2);
+
+INSERT INTO travellors.transportation(transport_type,fare)
+VALUES ('Bus',3);
+
+INSERT INTO travellors.transportation(transport_type,fare)
+VALUES ('Taxi',13);
+
+# Add some Recommendations
+INSERT INTO travellors.recommendation(title,creation_date,posting_time,post_rating,tips,description,personal_information,attraction_id,city_id,local_uid,tour_guide_uid,tourist_id)
+VALUES ("The Day At The Beach",
+		"2020-01-01",
+        "19:30:10",
+        8,
+        "Avoid the snapping seaguls, they are very mean :(",
+        "It was a wonderful day at the Miami Beach today.  Sunny sunshine
+        and wet water! Got to play beach volleyball, had a hot dog
+        at the nearby stand beach stand 10/10 by itself.
+        There is one spot at the beach that no one goes to
+        and is super peaceful.  We call it the 'seaguls pirate island'
+        rummored to be haunted by seaguls.  Most of this is a local myth, but
+        there are stories of seaguls following the beach goer back to their
+        house.  Quite a scary folk-tale.
+        Update: Seagul ate my hot dog :(",
+        "",
+        1,2,1,1,6);
+
+INSERT INTO travellors.recommendation(title,creation_date,posting_time,post_rating,tips,description,personal_information,attraction_id,city_id,local_uid,tour_guide_uid,tourist_id)
+VALUES ("Movie Night",
+		"2020-01-01",
+        "20:30:10",
+        10,
+        "The back left row has the best view! Plus direct access to the popcorn.",
+        "Whats better than a movie? A drive in movie! This gem has the best of both world;
+        the comfortableness and convenience of your own car plus all you can eat popcorn.  This
+        is a true gem!",
+        "",
+        9,2,2,1,7);
+        
+INSERT INTO travellors.recommendation(title,creation_date,posting_time,post_rating,tips,description,personal_information,attraction_id,city_id,local_uid,tour_guide_uid,tourist_id)
+VALUES ("Night at the Museum",
+		"2020-02-01",
+        "22:30:10",
+        10,
+        "Watch out for the one of a kind T-rex exhibit straight from Drumheller Canada!",
+        "Have you watched night at the museum 2?? We'll if you have, you know that the museum really comes
+        to life at night!  So does our speical Miami Louvre!  One of a kind merging of classical counterfeit
+        art with ancient pre-historical exhibits!  Fun for the whole family.",
+        "",
+        6,3,2,4,8);
+        
+# Add to visit table
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (1,6);
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (1,7);
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (1,8);
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (1,9);
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (1,10);
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (2,7);
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (3,6);
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (3,10);
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (4,9);
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (5,8);
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (6,6);
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (7,7);
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (7,8);
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (8,10);
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (9,6);
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (9,7);
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (9,8);
+INSERT INTO travellors.visit(attraction_id,tourist_uid)
+VALUES (10,10);
+
+# Add values to the rides on table
+INSERT INTO travellors.rides_on (transport_uid,tourist_uid,departure_address,distance_travelled,destination_address)
+VALUE (1,6,"162 Miami Road SW",30,"9000 Sunset Beach Road");
+INSERT INTO travellors.rides_on (transport_uid,tourist_uid,departure_address,distance_travelled,destination_address)
+VALUE (1,9,"162 Miami Road SW",30,"9000 Sunset Beach Road");
+INSERT INTO travellors.rides_on (transport_uid,tourist_uid,departure_address,distance_travelled,destination_address)
+VALUE (1,10,"162 Miami Road SW",30,"9000 Sunset Beach Road");
+INSERT INTO travellors.rides_on (transport_uid,tourist_uid,departure_address,distance_travelled,destination_address)
+VALUE (2,6,"85 Miami Louvre",30,"80 Palm Parks");
+INSERT INTO travellors.rides_on (transport_uid,tourist_uid,departure_address,distance_travelled,destination_address)
+VALUE (2,7,"85 Miami Louvre",30,"80 Palm Parks");
+
+# Add values to the identifiaction table
+INSERT INTO travellors.identification (local_uid,type_of_identification,identification_file)
+VALUES (1,'Drivers License','driverslicense.png');
+INSERT INTO travellors.identification (local_uid,type_of_identification,identification_file)
+VALUES (2,'Passport','passport.png');
+INSERT INTO travellors.identification (local_uid,type_of_identification,identification_file)
+VALUES (3,'Birth Ceritficate','birthcertificate.png');
+INSERT INTO travellors.identification (local_uid,type_of_identification,identification_file)
+VALUES (4,'Proof of Residence','proofOfResidence.png');
+
+# Adding values to places traved table
+INSERT INTO travellors.places_travelled (tourist_uid,Name_of_place_travelled)
+VALUES (6,'Spain');
+INSERT INTO travellors.places_travelled (tourist_uid,Name_of_place_travelled)
+VALUES (6,'Peru');
+INSERT INTO travellors.places_travelled (tourist_uid,Name_of_place_travelled)
+VALUES (6,'Italy');
+INSERT INTO travellors.places_travelled (tourist_uid,Name_of_place_travelled)
+VALUES (7,'South Africa');
+INSERT INTO travellors.places_travelled (tourist_uid,Name_of_place_travelled)
+VALUES (8,'Russia');
+INSERT INTO travellors.places_travelled (tourist_uid,Name_of_place_travelled)
+VALUES (8,'Italy');
+INSERT INTO travellors.places_travelled (tourist_uid,Name_of_place_travelled)
+VALUES (9,'Peru');
+
+# Adding values to provides deals
+INSERT INTO travellors.provides_deals(business_license_number,tourist_uid)
+VALUES (1,6);
+INSERT INTO travellors.provides_deals(business_license_number,tourist_uid)
+VALUES (2,7);
+INSERT INTO travellors.provides_deals(business_license_number,tourist_uid)
+VALUES (8,9);
+
+# Adding values to book
+INSERT INTO travellors.book(tour_guide_id,tourist_uid)
+VALUES (1,6);
+INSERT INTO travellors.book(tour_guide_id,tourist_uid)
+VALUES (2,6);
+INSERT INTO travellors.book(tour_guide_id,tourist_uid)
+VALUES (3,10);
+
+# RATE TABLE IS EMPTY
+#########################
+###########################
+###########################
+
+# TRAVELS TO TABLE IS ALSO EMPTY
+#################################
+#################################
+################################
