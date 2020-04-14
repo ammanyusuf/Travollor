@@ -2,15 +2,15 @@
 # Date: 4/8/2020
 
 # Skip this step if you have already created this table
-CREATE SCHEMA `travellors` ;
+#CREATE SCHEMA `travellors` ;
 
 # Enter these commands at the MYSQL Command Line Client
 
 # if you already created a user for any of your databases, skip this command
-create user 'admin1'@'localhost' identified by 'password';
+#create user 'admin1'@'localhost' identified by 'password';
 
 # If you have dropped this schema (travellors), execute this command again
-grant all on travellors.* to 'admin1'@'localhost';
+#grant all on travellors.* to 'admin1'@'localhost';
 
 # Creating city table
 CREATE TABLE `travellors`.`city` (
@@ -41,15 +41,15 @@ CREATE TABLE `travellors`.`local_business` (
   `name` VARCHAR(100) NOT NULL,
   `address` VARCHAR(200) NOT NULL,
   `user_personal_information` VARCHAR(150) NOT NULL,
-  `attraction_id` INT NOT NULL,
+  #`attraction_id` INT NOT NULL,
   `city_id` INT NOT NULL,
   PRIMARY KEY (`business_license_number`),
   INDEX `city_id_idx` (`city_id` ASC) VISIBLE,
-  CONSTRAINT `attraction_id_fk7`
-    FOREIGN KEY (`attraction_id`)
-    REFERENCES `travellors`.`attraction` (`attraction_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
+ # CONSTRAINT `attraction_id_fk7`
+  #  FOREIGN KEY (`attraction_id`)
+ #   REFERENCES `travellors`.`attraction` (`attraction_id`)
+   # ON DELETE CASCADE
+  #  ON UPDATE CASCADE,
   CONSTRAINT `city_id_fk2`
     FOREIGN KEY (`city_id`)
     REFERENCES `travellors`.`city` (`city_id`)
@@ -160,6 +160,7 @@ CREATE TABLE `travellors`.`user` (
   `admin_id` INT NULL,
   PRIMARY KEY (`user_id`));
   
+  # Need to add foreign keys here
 CREATE TABLE `travellors`.`local` (
   `user_id` INT NOT NULL,
   `rating` INT NULL,
@@ -170,7 +171,7 @@ CREATE TABLE `travellors`.`local` (
   `good_recommendations` VARCHAR(255) NULL,
   PRIMARY KEY (`user_id`)
   );
-  
+  # Need to add foreign keys here
 CREATE TABLE `travellors`.`tourist` (
   `user_id` INT NOT NULL,
   `nationality` VARCHAR(45) NULL,
@@ -183,7 +184,7 @@ CREATE TABLE `travellors`.`transportation` (
   `fare` INT NULL,
   PRIMARY KEY (`transportation_id`)
   );
-  
+  # Need to add foreign keys here
 CREATE TABLE `travellors`.`recommendation` (
   `title` VARCHAR(255) NOT NULL,
   `creation_date` DATE NULL,
@@ -250,7 +251,7 @@ CREATE TABLE `travellors`.`provides_deals` (
         REFERENCES `travellors`.`local_business` (`business_license_number`)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
-    CONSTRAINT `business_license_number_fk10` 
+    CONSTRAINT `business_license_number_fk10` #WHy is this named business license number fk10
 		FOREIGN KEY (`tourist_uid`)
         REFERENCES `travellors`.`tourist` (`user_id`)
 		ON DELETE CASCADE
