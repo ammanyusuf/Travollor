@@ -15,27 +15,20 @@ namespace ProjectTemp.Helpers
     {
 
         #region Query Methods
-        /*
-        public MySqlConnection GetMySQLConnection(string connectionstring)
-        {
-            if (connectionstring == null)
-                return null;
-            return new MySqlConnection(connectionstring);
-        }*/
 
-        public string Get_PuBConnectionString()
+        public string GetConnectionString()
         {
             return "server=localhost;port=3306;database=example;user=admin1;password=password;check parameters=false";
 
         }
 
+        /**
+         * This method will return the connection string in the GetConnectionString method
+         * into a MySqlConnection type string
+         */
         public MySqlConnection GetMySQLConnection()
         {
-            if (Get_PuBConnectionString() == null)
-            {
-                return null;
-            }
-            return new MySqlConnection(Get_PuBConnectionString());
+            return new MySqlConnection(GetConnectionString());
         }
 
         /// <summary>
@@ -116,16 +109,14 @@ namespace ProjectTemp.Helpers
             if (GetMySQLConnection() == null)
                 return null;
 
-            MySqlConnection connection = GetMySQLConnection();
             MySqlDataReader reader = null;
-            connection.Open();
 
             DataTable dataTable = new DataTable();
             /*
             MySqlCommand command = new MySqlCommand("GetPeople", connection);
             command.CommandType = CommandType.StoredProcedure;
             MySqlDataReader reader = command.ExecuteReader();
-            */
+            
             MySqlCommand myCommand = new MySqlCommand(procedureName);
             myCommand.Connection = connection;
             myCommand.CommandType = CommandType.StoredProcedure;
@@ -133,26 +124,29 @@ namespace ProjectTemp.Helpers
             reader = myCommand.ExecuteReader();
 
             dataTable.Load(reader);
-
-            /*MySqlDataAdapter adapter = new MySqlDataAdapter(procedureName, GetMySQLConnection());
+            */
+            MySqlDataAdapter adapter = new MySqlDataAdapter(procedureName, GetMySQLConnection());
             adapter.SelectCommand.CommandType = CommandType.StoredProcedure;
+            
+            // Open the connection
+            adapter.SelectCommand.Connection.Open();
 
             try
             {
                 adapter.SelectCommand.Parameters.AddRange(parameters);
-                adapter.SelectCommand.Connection.Open();
                 adapter.Fill(dataTable);
             }
             catch (Exception er)
             {
-                string ee = er.ToString();
                 dataTable = null;
             }
 
+            // Make sure to close the connection
             if (adapter.SelectCommand.Connection != null && adapter.SelectCommand.Connection.State == ConnectionState.Open)
+            {
                 adapter.SelectCommand.Connection.Close();
-                */
-            connection.Close();
+            }
+            
             return dataTable;
         }
 

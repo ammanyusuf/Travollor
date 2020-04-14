@@ -2,7 +2,7 @@
 # Date: 4/8/2020
 
 # Skip this step if you have already created this table
-#CREATE SCHEMA `travellors` ;
+CREATE SCHEMA `travellors` ;
 
 # Enter these commands at the MYSQL Command Line Client
 
@@ -167,7 +167,9 @@ CREATE TABLE `travellors`.`local` (
   `city_id` INT NULL,
   `super_local_flag` INT NULL,
   `super_local_uid` INT NULL,
-  `good_recommendations` VARCHAR(255) NULL);
+  `good_recommendations` VARCHAR(255) NULL,
+  PRIMARY KEY (`user_id`)
+  );
   
 CREATE TABLE `travellors`.`tourist` (
   `user_id` INT NOT NULL,
@@ -178,7 +180,9 @@ CREATE TABLE `travellors`.`tourist` (
 CREATE TABLE `travellors`.`transportation` (
   `transportation_id` INT NOT NULL,
   `transport_type` VARCHAR(255) NULL,
-  `fare` INT NULL);
+  `fare` INT NULL,
+  PRIMARY KEY (`transportation_id`)
+  );
   
 CREATE TABLE `travellors`.`recommendation` (
   `title` VARCHAR(255) NOT NULL,
