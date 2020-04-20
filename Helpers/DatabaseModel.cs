@@ -79,6 +79,7 @@ namespace ProjectTemp.Helpers
             MySqlCommand mySqlCommand = new MySqlCommand(procedureName, GetMySQLConnection());
             mySqlCommand.CommandType = CommandType.StoredProcedure;
 
+            
             try
             {
                 mySqlCommand.Parameters.AddRange(parameters);
@@ -228,7 +229,7 @@ namespace ProjectTemp.Helpers
             Parameters[0] = new MySqlParameter("@firstName", firstName);
             Parameters[1] = new MySqlParameter("@lastName", lastName);
 
-            Parameters[2] = new MySqlParameter("@pId", SqlDbType.Int);
+            Parameters[2] = new MySqlParameter("@pId", MySqlDbType.Int32);
             Parameters[2].Direction = ParameterDirection.Output;
 
 

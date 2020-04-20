@@ -53,8 +53,9 @@ namespace ProjectTemp.Controllers
         [Route("InsertEmployee")]
         public ActionResult<IEnumerable<string>> InsertEmployee([FromBody] JObject emp)
         {
-            string empName = (string)emp["empName"];
-            string empLastName = (string)emp["empLastName"];
+
+            string empName = emp["empName"].ToString();
+            string empLastName = emp["empLastName"].ToString();
 
             DatabaseModel dbm = new DatabaseModel();
             int res = dbm.insertPerson(empName, empLastName);
