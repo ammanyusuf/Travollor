@@ -12,6 +12,10 @@ create user 'admin1'@'localhost' identified by 'password';
 # If you have dropped this schema (travellors), execute this command again
 grant all on travellors.* to 'admin1'@'localhost';
 
+# Maybe useful for connecting to API 
+GRANT EXECUTE ON travellors.* TO 'admin1'@'localhost';
+GRANT SELECT ON travellors.* TO 'admin1'@'localhost';
+
 # Creating city table
 CREATE TABLE `travellors`.`city` (
   `city_id` INT NOT NULL AUTO_INCREMENT,
