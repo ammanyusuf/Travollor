@@ -168,7 +168,7 @@ VALUES ("Lue@gmail.com","Lue","Baloo","1");
 INSERT INTO travellors.user (email_id,first_name,last_name,admin_id)
 VALUES ("gibbon@gmail.com","Gibbon","Troglodyte","2");
 
-# 5 Tourists
+# 6 Tourists
 INSERT INTO travellors.user (email_id,first_name,last_name,admin_id)
 VALUES ("lione@gmail.com","Lione","Messi","1");
 
@@ -183,6 +183,10 @@ VALUES ("lone@gmail.com","Lone","Ranger","1");
 
 INSERT INTO travellors.user (email_id,first_name,last_name,admin_id)
 VALUES ("egg@gmail.com","Egg","AndCheese","2");
+
+# Added 6th tourist
+INSERT INTO travellors.user (email_id,first_name,last_name,admin_id)
+VALUES ("gastby@gmail.com","Gastby","Pooly","3");
 
 # Add 5 Locals
 INSERT INTO travellors.local (user_id,rating,num_of_recommendations,city_id,super_local_flag,super_local_uid,good_recommendations)
@@ -215,6 +219,10 @@ VALUES (9,"Canadian","1");
 
 INSERT INTO travellors.tourist (user_id,nationality,city_id)
 VALUES (10,"Canadian","6");
+
+# Why can't this be done??
+INSERT INTO travellors.tourist (user_id,nationality,city_id)
+VALUES ('11', 'Italian', '2');
 
 # Add values for transportation
 INSERT INTO travellors.transportation(transport_type,fare)
