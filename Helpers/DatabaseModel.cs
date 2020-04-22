@@ -18,7 +18,7 @@ namespace ProjectTemp.Helpers
 
         public string GetConnectionString()
         {
-            return "server=localhost;port=3306;database=example;user=admin1;password=password;check parameters=false";
+            return "server=localhost;port=3306;database=travellors;user=admin1;password=password;check parameters=false";
 
         }
 
@@ -235,15 +235,28 @@ namespace ProjectTemp.Helpers
 
             return Execute_Non_Query_Store_Procedure("AddPerson", Parameters, "pId");
         }
+        public DataTable getInfoAndFactsByCityID(int cityNumber)
+        {
+            MySqlParameter[] Parameters = new MySqlParameter[1];
+            Parameters[0] = new MySqlParameter("@cityNumber", cityNumber);
+
+            return Execute_Data_Query_Store_Procedure("infoAndFactsFromCity", Parameters);
+        }
 
 
-        public DataTable GetEmpsInfo()
+        public DataTable getTourGuidesByTouristCityID(int touristCityID)
+        {
+            MySqlParameter[] Parameters = new MySqlParameter[1];
+            Parameters[0] = new MySqlParameter("@touristCityID", touristCityID);
+
+            return Execute_Data_Query_Store_Procedure("tourGuidesByTouristCityID", Parameters);
+        }
+
+        public DataTable GetTouristNationality()
         {
             MySqlParameter[] Parameters = new MySqlParameter[0];
 
-
-            return Execute_Data_Query_Store_Procedure("GetPeople", Parameters);
-
+            return Execute_Data_Query_Store_Procedure("touristNationality", Parameters);
 
         }
 

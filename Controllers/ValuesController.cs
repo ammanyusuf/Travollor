@@ -21,23 +21,58 @@ namespace ProjectTemp.Controllers
         public ActionResult<bool> TestConnection()
         {
             DatabaseModel databaseModel = new DatabaseModel();
-            return Ok(databaseModel.CheckDatabaseConnectionString("server = localhost; port = 3306; database = example; user = admin1; password = password"));
+            return Ok(databaseModel.CheckDatabaseConnectionString("server = localhost; port = 3306; database = travellors; user = admin1; password = password"));
         }
+
+        // GET api/ValuesController/getTourGuidesByTouristCityID?touristCityID=2
+        [HttpGet]
+        [Route("getTourGuidesByTouristCityID")]
+        public ActionResult<IEnumerable<string>> getTourGuidesByTouristCityID(int touristCityID)
+        {
+            //List<string> listTourGuides = new List<string>();
+            DatabaseModel dbm = new DatabaseModel();
+            DataTable dt = dbm.getTourGuidesByTouristCityID(touristCityID);
+
+            /*
+            foreach (DataRow dr in dt.Rows)
+            {
+                foreach(DataColumn dc in dt.Columns) {
+                    string value = dr[0].ToString();
+                    listTourGuides.Add(dr[0].ToString());
+                }
+            }
+               */
+            return Ok(dt);
+        }
+
+        // GET api/ValuesController/getInfoAndFactsByCityID?cityID=2
+        [HttpGet]
+        [Route("getInfoAndFactsByCityID")]
+        public ActionResult<IEnumerable<string>> getInfoAndFactsByCityID(int cityID)
+        {
+            //List<string> listTourGuides = new List<string>();
+            DatabaseModel dbm = new DatabaseModel();
+            DataTable dt = dbm.getInfoAndFactsByCityID(cityID);
+
+            return Ok(dt);
+        }
+
+        // Isa method: getting tourist's nationality !
 
         // GET api/ValuesController/GetValues
         [HttpGet]
         [Route("GetValues")]
         public ActionResult<IEnumerable<string>> GetValues()
         {
-            List<string> myEMps = new List<string>();
+            List<string> touristList = new List<string>();
             DatabaseModel dbm = new DatabaseModel();
-            DataTable dt = dbm.GetEmpsInfo();
+            DataTable dt = dbm.GetTouristNationality();
             foreach (DataRow dr in dt.Rows)
             {
-                string name = dr[0].ToString();
-                myEMps.Add(dr[0].ToString());
+                string nationality = dr[1].ToString();
+                touristList.Add(dr[1].ToString());
             }
-            return Ok(myEMps);
+            return Ok(touristList);
         }
 
         // GET api/ValuesController/GetValuesById?id=5
