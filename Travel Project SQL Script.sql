@@ -348,6 +348,9 @@ CREATE TABLE `travellors`.`provides_deals` (
 		ON DELETE CASCADE
 		ON UPDATE CASCADE 
     );
+#changes    
+ALTER TABLE `travellors`.`provides_deals` 
+ADD COLUMN `deals` VARCHAR(255) NULL AFTER `tourist_uid`;
 
 # Creating 'Book' relationship table
 # Note: partial relationship so attributes can be null .. mmm
