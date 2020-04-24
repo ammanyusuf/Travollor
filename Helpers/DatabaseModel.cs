@@ -277,6 +277,47 @@ namespace ProjectTemp.Helpers
 
             return Execute_Non_Query_Store_Procedure("UpdateSalary", Parameters);
         }
+        
+        public DataTable getRecommendations_retrieve(string attraction_name)
+        {
+            MySqlParameter[] Parameters = new MySqlParameter[1];
+            Parameters[0] = new MySqlParameter("@attraction_name", attraction_name);
+            return Execute_Data_Query_Store_Procedure("recommendations_retrieve", Parameters);
+
+        }
+
+        public DataTable getLocal_business_info(int city_id)
+        {
+            MySqlParameter[] Parameters = new MySqlParameter[1];
+            Parameters[0] = new MySqlParameter("@city_id", city_id);
+            return Execute_Data_Query_Store_Procedure("local_business_info", Parameters);
+
+        }
+        
+        public int PostAdd_Recommendation(string title, DateTime creation_date, DateTime posting_time , 
+        int post_rating, string tips, string description, string personal_info,
+        int attraction_id, int city_id, int local_uid, int tour_guide_id, int tourist_id, string title_name )
+        {
+            MySqlParameter[] Parameters = new MySqlParameter[13];
+            Parameters[0] = new MySqlParameter("@rtitle", title);
+            Parameters[1] = new MySqlParameter("@rcreation_date", creation_date);
+            Parameters[2] = new MySqlParameter("@rposting_time", posting_time);
+            Parameters[3] = new MySqlParameter("@rpost_rating",post_rating);
+            Parameters[4] = new MySqlParameter("@rtips",tips);
+            Parameters[5] = new MySqlParameter("@rdescription",description);
+            Parameters[6] = new MySqlParameter("@rpersonal_info",personal_info);
+            Parameters[7] = new MySqlParameter("@rattraction_id",attraction_id);
+            Parameters[8] = new MySqlParameter("@rcity_id",city_id);
+            Parameters[9] = new MySqlParameter("@rlocal_uid",local_uid);
+            Parameters[10] = new MySqlParameter("@rtour_guide_id",tour_guide_id);
+            Parameters[11] = new MySqlParameter("@rtourist_id",tourist_id);
+            Parameters[12] = new MySqlParameter("@title_name", MySqlDbType.VarChar);
+            Parameters[12].Direction = ParameterDirection.Output;
+            return Execute_Non_Query_Store_Procedure("add_Recommendation", Parameters, "@title_name");
+
+
+        }
+
 
         #endregion
     }
