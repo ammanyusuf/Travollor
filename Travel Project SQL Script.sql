@@ -59,6 +59,15 @@ CREATE TABLE `travellors`.`local_business` (
     REFERENCES `travellors`.`city` (`city_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
+
+######################Added a super_local_uid foreign key to local_business ############
+ALTER TABLE `travellors`.`local_business`
+ADD COLUMN super_local_uid INT NULL,
+ADD CONSTRAINT `super_local_uid`
+    FOREIGN KEY (`super_local_uid`)
+    REFERENCES `travellors`.`local` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
     
 # Below I'll create the sub-classes for the attraction entity. 
 # There's 6 sub-classes in total
