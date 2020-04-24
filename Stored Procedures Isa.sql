@@ -108,3 +108,28 @@ END //
 DELIMITER ;
 
 call touristNationality();
+
+# POST: Endpoint for storing user (tourist and local) personal information which includes name and email address.  
+# As an admin I should be able to add users (tourists and loocals) so that only registered people can access the system.
+
+DELIMITER //
+CREATE PROCEDURE `addUser` (
+	IN email_id varchar(255),
+    IN first_name varchar(255),
+    IN last_name varchar(255),
+    IN admin_id INT,
+    OUT userID int
+)
+
+BEGIN 
+	INSERT INTO user (email_id, first_name, last_name, admin_id) values (email_id, first_name, last_name, admin_id);
+    
+    SELECT user_id 
+    INTO userID
+    FROM user
+    WHERE user_id = (SELECT last_insert_id());
+END //
+DELIMITER ;
+
+call addUser('aa@hotmail.com', 'Onyx', 'Lias', 2, @userID);
+select @userID;

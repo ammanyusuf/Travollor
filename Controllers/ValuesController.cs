@@ -83,40 +83,19 @@ namespace ProjectTemp.Controllers
             return new string[] { "value1" };
         }
 
-        // POST api/ValuesController/InsertEmployee
+        // POST api/ValuesController/addUser
         [HttpPost]
-        [Route("InsertEmployee")]
-        public ActionResult<IEnumerable<string>> InsertEmployee([FromBody] JObject emp)
+        [Route("addUser")]
+        public ActionResult<IEnumerable<string>> addUser([FromBody] JObject user)
         {
-
-            string empName = emp["empName"].ToString();
-            string empLastName = emp["empLastName"].ToString();
+            string userEmail = user["userEmail"].ToString();
+            string userName = user["userName"].ToString();
+            string userLastName = user["userLastName"].ToString();
+            int userAdminID = (int)user["userAdminID"];
 
             DatabaseModel dbm = new DatabaseModel();
-            int res = dbm.insertPerson(empName, empLastName);
+            int res = dbm.addUser(userEmail, userName, userLastName, userAdminID);
 
-            return Ok(res);
-        }
-
-        // PUT api/ValuesController/UpdateEmployee
-        [HttpPut]
-        [Route("UpdateEmployee")]
-        public void UpdateEmployee([FromBody] JObject emp)
-        {
-            int empId = (int)emp["empId"];
-            string empName = (string)emp["empName"];
-            string empBdate = (string)emp["empBdate"];
-        }
-
-
-
-        [HttpPut]
-        [Route("UpdateSalary")]
-        public ActionResult<IEnumerable<string>> UpdateSalary()
-        {
-
-            DatabaseModel dbm = new DatabaseModel();
-            int res = dbm.updateSalaries();
             return Ok(res);
         }
 

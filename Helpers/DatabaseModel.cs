@@ -223,17 +223,19 @@ namespace ProjectTemp.Helpers
         }
 
 
-        public int insertPerson(string firstName, string lastName)
+        public int addUser(string email_id, string first_name, string last_name, int admin_id)
         {
-            MySqlParameter[] Parameters = new MySqlParameter[3];
-            Parameters[0] = new MySqlParameter("@firstName", firstName);
-            Parameters[1] = new MySqlParameter("@lastName", lastName);
+            MySqlParameter[] Parameters = new MySqlParameter[5];
+            Parameters[0] = new MySqlParameter("@email_id", email_id);
+            Parameters[1] = new MySqlParameter("@first_name", first_name);
+            Parameters[2] = new MySqlParameter("@last_name", last_name);
+            Parameters[3] = new MySqlParameter("@admin_id", admin_id);
 
-            Parameters[2] = new MySqlParameter("@pId", MySqlDbType.Int32);
-            Parameters[2].Direction = ParameterDirection.Output;
+            Parameters[4] = new MySqlParameter("@userID", MySqlDbType.Int32);
+            Parameters[4].Direction = ParameterDirection.Output;
 
 
-            return Execute_Non_Query_Store_Procedure("AddPerson", Parameters, "pId");
+            return Execute_Non_Query_Store_Procedure("addUser", Parameters, "userID");
         }
         public DataTable getInfoAndFactsByCityID(int cityNumber)
         {
