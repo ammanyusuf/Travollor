@@ -27,8 +27,8 @@ END //
 
 DELIMITER ;
 
-call updateLocalRatings (1,9,@new_rating);
-select @new_rating;
+#call updateLocalRatings (1,9,@new_rating);
+#select @new_rating;
 
 
 # Use case 8: as a super local, i should be able to recruit/add other locals 
@@ -60,19 +60,22 @@ END //
 
 DELIMITER ;
 
-INSERT INTO travellors.user (user_id,email_id,first_name,last_name,admin_id)
-VALUES (111,"someemail@gmail.com","Fabby","Lappy","1");
+#INSERT INTO travellors.user (user_id,email_id,first_name,last_name,admin_id)
+#VALUES (111,"someemail@gmail.com","Fabby","Lappy","1");
+
+#INSERT INTO travellors.user (user_id,email_id,first_name,last_name,admin_id)
+#VALUES (112,"someemail@gmail.com","Fabby","Lappy","1");
+
+#INSERT INTO travellors.user (user_id,email_id,first_name,last_name,admin_id)
+#VALUES (113,"someemail@gmail.com","Fabby","Lappy","1");
 
 INSERT INTO travellors.user (user_id,email_id,first_name,last_name,admin_id)
-VALUES (112,"someemail@gmail.com","Fabby","Lappy","1");
+VALUES (114,"someemail@gmail.com","Fabby","Lappy","1");
 
-INSERT INTO travellors.user (user_id,email_id,first_name,last_name,admin_id)
-VALUES (113,"someemail@gmail.com","Fabby","Lappy","1");
+#call addLocal (1,113,2,false,@inserted_user_id);
+#select @inserted_user_id;
 
-call addLocal (1,113,2,false,@inserted_user_id);
-select @inserted_user_id;
-
-select last_insert_id();
+#select last_insert_id();
 
 
 # Use case 9: as a super local, I should be able to verify local businesses in my city so that

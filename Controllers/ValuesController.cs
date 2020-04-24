@@ -147,8 +147,8 @@ namespace ProjectTemp.Controllers
                 return Ok(res.ToString());
         }
 
-        // POST api/ValuesController/updateLocalRatings
-        [HttpPost]
+        // PUT api/ValuesController/updateLocalRatings
+        [HttpPut]
         [Route("updateLocalRatings")]
         public ActionResult<IEnumerable<string>> updateLocalRatings([FromBody] JObject rat)
         {
@@ -157,6 +157,21 @@ namespace ProjectTemp.Controllers
             int updated_rating = (int)rat["updatedRating"];
             DatabaseModel dbm = new DatabaseModel();
             int response = dbm.updateLocalRatings(uid,updated_rating);
+            return Ok(response.ToString());
+        }
+
+        // POST api/ValuesController/addLocal
+        [HttpPost]
+        [Route("addLocal")]
+        public ActionResult<IEnumerable<string>> addLocal([FromBody] JObject add)
+        {
+            // Retrieve the attributes from the json object to be passed through the function
+            int super_local_uid = (int)add["superLocalUid"];
+            int local_user_id = (int)add["localUserId"];
+            int city_id = (int)add["cityId"];
+            bool super_local_flag = (bool)add["superLocalFlag"];
+            DatabaseModel dbm = new DatabaseModel();
+            int response = dbm.addLocal(super_local_uid, local_user_id, city_id, super_local_flag);
             return Ok(response.ToString());
         }
 

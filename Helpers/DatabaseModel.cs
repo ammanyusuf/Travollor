@@ -330,6 +330,20 @@ namespace ProjectTemp.Helpers
 
         }
 
+        public int addLocal(int super_local_uid, int local_uid, int city_id, bool super_local_flag)
+        {
+            MySqlParameter[] parameters = new MySqlParameter[5];
+
+            parameters[0] = new MySqlParameter("@super_local_user_id", super_local_uid);
+            parameters[1] = new MySqlParameter("@local_user_id", local_uid);
+            parameters[2] = new MySqlParameter("@city_id", city_id);
+            parameters[3] = new MySqlParameter("@super_local_flag_input", super_local_flag);
+            parameters[4] = new MySqlParameter("@inserted_user_id", MySqlDbType.Int32);
+            parameters[4].Direction = ParameterDirection.Output;
+
+            return Execute_Non_Query_Store_Procedure("addLocal", parameters, parameters[4].ToString());
+        }
+
         #endregion
     }
 }
