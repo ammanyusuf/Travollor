@@ -32,23 +32,6 @@ DELIMITER ;
 
 call infoAndFactsFromCity(2);
 
-SELECT DISTINCT c.name as city_name, a.name as attraction_name, a.interesting_fact, a.attraction_description, r.type as restaurant_type,
-	 re.recreation_type as recreation_type, cs.admission_price as cultural_site_price,  en.entertainment_type as entertainment_type
-FROM  city as c, attraction as a, restaurant as r, recreation as re, cultural_site as cs, entertainment as en
-WHERE c.city_id = 2 and c.city_id = a.city_id and a.attraction_id IN (
-	SELECT DISTINCT r.attraction_id
-    FROM restaurant as r
-    UNION
-    SELECT DISTINCT re.attraction_id
-    FROM recreation as re
-    UNION 
-    SELECT DISTINCT cs.attraction_id
-    FROM cultural_site as cs
-    UNION 
-    SELECT DISTINCT en.attraction_id
-    FROM entertainment as en
-);
-
 # Good too
 SELECT DISTINCT c.name as city_name, a.interesting_fact, a.attraction_description, 
 group_concat(DISTINCT a.name ORDER BY a.name ASC SEPARATOR ', ') as attraction_names,
