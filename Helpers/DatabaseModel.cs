@@ -344,6 +344,21 @@ namespace ProjectTemp.Helpers
             return Execute_Non_Query_Store_Procedure("addLocal", parameters, parameters[4].ToString());
         }
 
+        public int verifyLocalBusiness(int super_local_uid, int business_license_number, string name, string address, int city_id)
+        {
+            MySqlParameter[] parameters = new MySqlParameter[6];
+
+            parameters[0] = new MySqlParameter("@super_local_UID_1", super_local_uid);
+            parameters[1] = new MySqlParameter("@business_license_number1", business_license_number);
+            parameters[2] = new MySqlParameter("@name1", name);
+            parameters[3] = new MySqlParameter("@address1", address);
+            parameters[4] = new MySqlParameter("@city_id1", city_id);
+            parameters[5] = new MySqlParameter("@out_bln", MySqlDbType.Int32);
+            parameters[5].Direction = ParameterDirection.Output;
+
+            return Execute_Non_Query_Store_Procedure("verifyLocalBusiness", parameters, parameters[5].ToString());
+        }
+
         #endregion
     }
 }

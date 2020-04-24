@@ -69,8 +69,8 @@ DELIMITER ;
 #INSERT INTO travellors.user (user_id,email_id,first_name,last_name,admin_id)
 #VALUES (113,"someemail@gmail.com","Fabby","Lappy","1");
 
-INSERT INTO travellors.user (user_id,email_id,first_name,last_name,admin_id)
-VALUES (114,"someemail@gmail.com","Fabby","Lappy","1");
+#INSERT INTO travellors.user (user_id,email_id,first_name,last_name,admin_id)
+#VALUES (114,"someemail@gmail.com","Fabby","Lappy","1");
 
 #call addLocal (1,113,2,false,@inserted_user_id);
 #select @inserted_user_id;

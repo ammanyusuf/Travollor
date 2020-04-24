@@ -155,8 +155,10 @@ namespace ProjectTemp.Controllers
             // Retrieve the attributes from the json object to be passed through the function
             int uid = (int)rat["uid"];
             int updated_rating = (int)rat["updatedRating"];
+            
             DatabaseModel dbm = new DatabaseModel();
             int response = dbm.updateLocalRatings(uid,updated_rating);
+            
             return Ok(response.ToString());
         }
 
@@ -170,8 +172,28 @@ namespace ProjectTemp.Controllers
             int local_user_id = (int)add["localUserId"];
             int city_id = (int)add["cityId"];
             bool super_local_flag = (bool)add["superLocalFlag"];
+            
             DatabaseModel dbm = new DatabaseModel();
             int response = dbm.addLocal(super_local_uid, local_user_id, city_id, super_local_flag);
+            
+            return Ok(response.ToString());
+        }
+
+        // POST api/ValuesController/verifyLocalBusiness
+        [HttpPost]
+        [Route("verifyLocalBusiness")]
+        public ActionResult<IEnumerable<string>> verifyLocalBusiness([FromBody] JObject verify)
+        {
+            // Retrieve the attributes from the json object to be passed through the function
+            int super_local_uid = (int)verify["superLocalUid"];
+            int business_license_number = (int)verify["businessLicenseNumber"];
+            string name = verify["name"].ToString();
+            string address = verify["address"].ToString();
+            int city_id = (int)verify["cityId"];
+
+            DatabaseModel dbm = new DatabaseModel();
+            int response = dbm.verifyLocalBusiness(super_local_uid, business_license_number, name, address, city_id);
+            
             return Ok(response.ToString());
         }
 
