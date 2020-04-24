@@ -370,6 +370,11 @@ INSERT INTO travellors.provides_deals(business_license_number,tourist_uid)
 VALUES (2,7);
 INSERT INTO travellors.provides_deals(business_license_number,tourist_uid)
 VALUES (8,9);
+INSERT INTO travellors.provides_deals(business_license_number,tourist_uid,deals)
+VALUES (5,6, 'BOGO:Buy One Get One');
+INSERT INTO travellors.provides_deals(business_license_number,tourist_uid,deals)
+VALUES (3,9, 'Buy One Get One 50% off');
+
 
 # Adding values to book
 INSERT INTO travellors.book(tour_guide_id,tourist_uid)
