@@ -76,6 +76,7 @@ WHERE c.city_id = 2 and c.city_id = a.city_id and a.attraction_id IN (
 );
 
 # Use case 2) GET: Endpoint for retrieving the attraction that has the most recommendations. 
+# Setting post_rating >= 8 to be a good rating for a post
 
 DELIMITER //
 
@@ -84,18 +85,16 @@ CREATE PROCEDURE `attractionMostRecommendationsByCityID` (
     IN cityNumber INT 
 )
 BEGIN
-	SELECT *
-	FROM city as c, attraction as a, recommendation as rem
-	WHERE c.city_id = 2 and c.city_id = rem.city_id;
+	SELECT a.attraction_id, a.name as attraction_name, COUNT(title) as num_recommendations, a.interesting_fact, a.attraction_description
+    FROM city as c, recommendation as rem, attraction as a
+	WHERE c.city_id = cityNumber and c.city_id = rem.city_id and a.attraction_id = rem.attraction_id and post_rating >= 8
+    GROUP BY rem.attraction_id
+    ORDER BY num_recommendations DESC LIMIT 1;
 END //
 
 DELIMITER ;
 
 call attractionMostRecommendationsByCityID(2);
-
-SELECT *
-FROM recommendation as m, attraction as a, city as c
-WHERE c.city_id = 2 and c.city_id = m.city_id and m.attraction_id = a.attraction_id
 
 # Use case 3) GET: Endpoint for retrieving locations where tour guides live based on the location tourists will visit. 
 

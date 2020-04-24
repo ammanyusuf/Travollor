@@ -243,6 +243,14 @@ namespace ProjectTemp.Helpers
             return Execute_Data_Query_Store_Procedure("infoAndFactsFromCity", Parameters);
         }
 
+        public DataTable getAttractionWithMostRecommendationsByCityID(int cityNumber)
+        {
+            MySqlParameter[] Parameters = new MySqlParameter[1];
+            Parameters[0] = new MySqlParameter("@cityNumber", cityNumber);
+
+            return Execute_Data_Query_Store_Procedure("attractionMostRecommendationsByCityID", Parameters);
+        }
+
 
         public DataTable getTourGuidesByTouristCityID(int touristCityID)
         {

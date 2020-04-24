@@ -277,6 +277,16 @@ VALUES ("Night at the Museum",
         "",
         6,3,2,4,8);
         
+INSERT INTO `travellors`.`recommendation` (`title`, `creation_date`, `posting_time`, `post_rating`, `tips`, `description`, `attraction_id`, `city_id`, `local_uid`, `tour_guide_uid`, `tourist_id`) 
+VALUES ('Refreshing Smoothies', 
+		'2020-02-01', 
+        '18:30:45', 
+        '9', 
+        'Super refreshing and lots of flavour! The strawberry with milk was the best!', 
+        'After a long day at the beach, what\'s better than taking in a cool yummy smoothie?! What are you waiting for? Go get your smoothie!',
+        '9', '2', '2', '3', '9');
+        
+	
 # Add to visit table
 INSERT INTO travellors.visit(attraction_id,tourist_uid)
 VALUES (1,6);

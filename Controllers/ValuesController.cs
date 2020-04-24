@@ -29,19 +29,9 @@ namespace ProjectTemp.Controllers
         [Route("getTourGuidesByTouristCityID")]
         public ActionResult<IEnumerable<string>> getTourGuidesByTouristCityID(int touristCityID)
         {
-            //List<string> listTourGuides = new List<string>();
             DatabaseModel dbm = new DatabaseModel();
             DataTable dt = dbm.getTourGuidesByTouristCityID(touristCityID);
 
-            /*
-            foreach (DataRow dr in dt.Rows)
-            {
-                foreach(DataColumn dc in dt.Columns) {
-                    string value = dr[0].ToString();
-                    listTourGuides.Add(dr[0].ToString());
-                }
-            }
-               */
             return Ok(dt);
         }
 
@@ -50,9 +40,19 @@ namespace ProjectTemp.Controllers
         [Route("getInfoAndFactsByCityID")]
         public ActionResult<IEnumerable<string>> getInfoAndFactsByCityID(int cityID)
         {
-            //List<string> listTourGuides = new List<string>();
             DatabaseModel dbm = new DatabaseModel();
             DataTable dt = dbm.getInfoAndFactsByCityID(cityID);
+
+            return Ok(dt);
+        }
+
+        // GET api/ValuesController/getAttractionWithMostRecommendationsByCityID?cityID=2
+        [HttpGet]
+        [Route("getAttractionWithMostRecommendationsByCityID")]
+        public ActionResult<IEnumerable<string>> getAttractionWithMostRecommendationsByCityID(int cityID)
+        {
+            DatabaseModel dbm = new DatabaseModel();
+            DataTable dt = dbm.getAttractionWithMostRecommendationsByCityID(cityID);
 
             return Ok(dt);
         }
