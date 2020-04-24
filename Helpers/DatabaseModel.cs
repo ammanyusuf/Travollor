@@ -294,12 +294,11 @@ namespace ProjectTemp.Helpers
 
         }
         
-        public int PostAdd_Recommendation(string title, DateTime creation_date, DateTime posting_time , 
+      public string PostAdd_Recommendation(string title, DateTime creation_date, DateTime posting_time , 
         int post_rating, string tips, string description, string personal_info,
-        int attraction_id, int city_id, int local_uid, int tour_guide_id, int tourist_id, string title_name )
-        {
+        int attraction_id, int city_id, int local_uid, int tour_guide_id, int tourist_id){
             MySqlParameter[] Parameters = new MySqlParameter[13];
-            Parameters[0] = new MySqlParameter("@rtitle", title);
+            Parameters[0] = new MySqlParameter("@rtitle", title);//Make sure parameters name matches thenames given in your stored procedure
             Parameters[1] = new MySqlParameter("@rcreation_date", creation_date);
             Parameters[2] = new MySqlParameter("@rposting_time", posting_time);
             Parameters[3] = new MySqlParameter("@rpost_rating",post_rating);
@@ -313,9 +312,9 @@ namespace ProjectTemp.Helpers
             Parameters[11] = new MySqlParameter("@rtourist_id",tourist_id);
             Parameters[12] = new MySqlParameter("@title_name", MySqlDbType.VarChar);
             Parameters[12].Direction = ParameterDirection.Output;
-            return Execute_Non_Query_Store_Procedure("add_Recommendation", Parameters, "@title_name");
-
-
+            Execute_Non_Query_Store_Procedure("add_Recommendation", Parameters, Parameters[12].ToString());
+            string returnValue = title;
+            return returnValue;
         }
 
 
