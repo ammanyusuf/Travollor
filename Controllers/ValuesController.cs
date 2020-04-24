@@ -147,6 +147,18 @@ namespace ProjectTemp.Controllers
                 return Ok(res.ToString());
         }
 
+        // POST api/ValuesController/updateLocalRatings
+        [HttpPost]
+        [Route("updateLocalRatings")]
+        public ActionResult<IEnumerable<string>> updateLocalRatings([FromBody] JObject rat)
+        {
+            // Retrieve the attributes from the json object to be passed through the function
+            int uid = (int)rat["uid"];
+            int updated_rating = (int)rat["updatedRating"];
+            DatabaseModel dbm = new DatabaseModel();
+            int response = dbm.updateLocalRatings(uid,updated_rating);
+            return Ok(response.ToString());
+        }
 
     }
 }

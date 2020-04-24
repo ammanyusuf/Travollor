@@ -317,6 +317,18 @@ namespace ProjectTemp.Helpers
             return returnValue;
         }
 
+        public int updateLocalRatings(int uid, int updated_rating)
+        {
+            MySqlParameter[] parameters = new MySqlParameter[3];
+
+            parameters[0] = new MySqlParameter("@uid", uid);
+            parameters[1] = new MySqlParameter("@updated_rating", updated_rating);
+            parameters[2] = new MySqlParameter("@new_rating", MySqlDbType.Int32);
+            parameters[2].Direction = ParameterDirection.Output;
+
+            return Execute_Non_Query_Store_Procedure("updateLocalRatings", parameters, parameters[2].ToString());
+
+        }
 
         #endregion
     }
