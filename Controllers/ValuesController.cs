@@ -98,6 +98,56 @@ namespace ProjectTemp.Controllers
 
             return Ok(res);
         }
+        
+        // GET api/ValuesController/getRecommendations_retrieve?attraction_name=Miami Beach
+        // If doesn't work in postman enter 
+        // api/ValuesController/getRecommendations_retrieve?attraction_name=Miami%20Beach
+        [HttpGet]
+        [Route("getRecommendations_retrieve")]
+        public ActionResult<IEnumerable<string>> getRecommendations_retrieve(string attraction_name)
+        {
+            DatabaseModel dbm = new DatabaseModel();
+            DataTable dt = dbm.getRecommendations_retrieve(attraction_name);
+            return Ok(dt);
+        }
+        
+        // GET api/ValuesController/getLocal_business_info?city_id=2
+        [HttpGet]
+        [Route("getLocal_business_info")]
+        public ActionResult<IEnumerable<string>>getLocal_business_info(int city_id)
+        {
+            //List<string> listTourGuides = new List<string>();
+            DatabaseModel dbm = new DatabaseModel();
+            DataTable dt = dbm.getLocal_business_info(city_id);
+             return Ok(dt);
+        }
+        //POST api/ValuesController/PostAdd_Recommendation
+         [HttpPost]
+         [Route("PostAdd_Recommendation")]
+         public ActionResult<IEnumerable<string>> PostAdd_Recommendation([FromBody] JObject rec)
+         {
+
+
+                string title = rec["rtitle"].ToString();
+                DateTime creation_date= (DateTime)rec["rcreation_date"];
+                DateTime posting_time = (DateTime)rec["rposting_time"];
+                int post_rating = (int)rec["post_rating"];
+                string tips = rec["rtips"].ToString();
+                string description = rec["rdescription"].ToString();
+                string personal_info = rec["rpersonal_info"].ToString();
+                int attraction_id = (int)rec["rattraction_id"];
+                int city_id = (int)rec["rcity_id"];
+                int local_uid= (int)rec["local_uid"];
+                int tour_guide_id=(int)rec["rtour_guide_id"];
+                int tourist_id =(int)rec["rtourist_id"];
+                string title_name = rec["rtitle"].ToString();
+
+                DatabaseModel dbm = new DatabaseModel();
+                int res = dbm.PostAdd_Recommendation(title,creation_date,posting_time,post_rating,tips,description,personal_info,
+                attraction_id,city_id,local_uid,tour_guide_id,tourist_id,title_name);
+                return Ok(res.ToString());
+        }
+
 
     }
 }
