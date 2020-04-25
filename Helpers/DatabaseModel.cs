@@ -11,11 +11,20 @@ using MySql.Data.Types;
 
 namespace ProjectTemp.Helpers
 {
+    /**
+     * This code document references and uses Professor Abdullah Sarhan's provided templated code
+     * called ProjectTemp.  The StoredProcedures region built upon the provided example code.  However,
+     * the Query Methods region uses the referenced ProjectTemp code to set up the database connection
+     * and the stored procedure, query connections.
+     */
     public class DatabaseModel
     {
 
         #region Query Methods
 
+        /**
+         * Description: This method will return the connection string that is used to connect to the database.
+         */
         public string GetConnectionString()
         {
             return "server=localhost;port=3306;database=travellors;user=admin1;password=password;check parameters=false";
@@ -23,110 +32,151 @@ namespace ProjectTemp.Helpers
         }
 
         /**
-         * This method will return the connection string in the GetConnectionString method
-         * into a MySqlConnection type string
+         * Description: This method will return the connection string in the GetConnectionString method
+         *              as a MySqlConnection type string.
          */
         public MySqlConnection GetMySQLConnection()
         {
             return new MySqlConnection(GetConnectionString());
         }
 
-        /// <summary>
-        /// This method is responisble to to execute a query in your RDBMS and return for you an output value. 
-        /// For instance, in some cases when you insert a new records you need to return the id of that record to do other actions
-        /// </summary>
-        /// <returns></returns>
+        /** 
+         * Description: This method is responisble to to execute a query in the MySQL DBMS and return for an output value.
+         *  
+         * Returns: this method returns the output value of the stored procedure if successfull.  Will retunr -2 if the query
+         *          was unssuccessful
+         */ 
 
         public int Execute_Non_Query_Store_Procedure(string procedureName, MySqlParameter[] parameters, string returnValue)
         {
+            // Check if the connection is null
             if (GetMySQLConnection() == null)
+            {
                 return -2;
+            }
 
             int successfulQuery = -2;
+
+            // Create a new MySqlCommand object that will communicate with the MySQL database
             MySqlCommand mySqlCommand = new MySqlCommand(procedureName, GetMySQLConnection());
+
+            // Set the command type to a stored procedure
             mySqlCommand.CommandType = CommandType.StoredProcedure;
 
             try
             {
+                // Add the parameters passed in to the parameters of the stored procedure
                 mySqlCommand.Parameters.AddRange(parameters);
+
+                // Open the connection to the database
                 mySqlCommand.Connection.Open();
+
+                // Execute the non query
                 successfulQuery = mySqlCommand.ExecuteNonQuery();
+                
+                // Set successfulQuery equal to the specified return output value of the stored procedure
                 successfulQuery = (int)mySqlCommand.Parameters["@" + returnValue].Value;
 
             }
             catch (Exception ex)
             {
                 string s = ex.Message;
+
+                // Set successful query equal to 2, this signifies that there was an exception when running the query
+                successfulQuery = -2;
             }
 
+            // Safely close the connection to the database
             if (mySqlCommand.Connection != null && mySqlCommand.Connection.State == ConnectionState.Open)
+            {
                 mySqlCommand.Connection.Close();
+            }
 
+            // Return the value of the successful query
             return successfulQuery;
         }
 
 
-        /// <summary>
-        /// This method is responisble to to execute a query in your RDBMS and return for you if it was successult executed. Minay used for insert,update, and delete
-        /// </summary>
-        /// <returns></returns>
+        /**
+         * Description: This method is responisble to to execute a query in in the MySQL DBMS and return if 
+         *              the query was successful or not. May be used for insert,update, and delete
+         *
+         * Return: this method returns whether the query was successful or not
+         */
         public int Execute_Non_Query_Store_Procedure(string procedureName, MySqlParameter[] parameters)
         {
+            // Check if the MySQL connection is null
             if (GetMySQLConnection() == null)
+            {
+                // If the MySQl conneciton is null, return -1, signifying an unsuccessful query
                 return -1;
+            }
+                
 
             int successfulQuery = 1;
+
+            // Create a new MySqlCommand object that will communicate with the MySQL database
             MySqlCommand mySqlCommand = new MySqlCommand(procedureName, GetMySQLConnection());
+
+            // Set the command type to a stored procedure
             mySqlCommand.CommandType = CommandType.StoredProcedure;
 
             
             try
             {
+                // Add the parameters passed in to the parameters of the stored procedure
                 mySqlCommand.Parameters.AddRange(parameters);
+
+                // Open the connection to the database
                 mySqlCommand.Connection.Open();
+
+                // Execute the non query and set whether the query was successful or not
                 successfulQuery = mySqlCommand.ExecuteNonQuery();
-                // successfulQuery =1
 
             }
             catch (Exception ex)
             {
                 string s = ex.Message;
+
+                // Set successful query equal to 2, this signifies that there was an exception when running the query
                 successfulQuery = -2;
             }
 
+            // Safely close the connection to the database
             if (mySqlCommand.Connection != null && mySqlCommand.Connection.State == ConnectionState.Open)
+            {
                 mySqlCommand.Connection.Close();
+            }
 
+            // Return the value of the successful query
             return successfulQuery;
         }
 
-
-        /// <summary>
-        /// This method is responisble to to execute to rertieve data from your RDBSM by executing a stored procedure. Mainly used when using one select statment
-        /// </summary>
-        /// <returns></returns>
+        /**
+         * Description: This method is responisble for retrieving data from the MySQL DBMS by 
+         *              executing a stored procedure. This is primarily used for select statements
+         * 
+         * Return: this method returns a DataTable of the tuples retrieved in the select query
+         */
         public DataTable Execute_Data_Query_Store_Procedure(string procedureName, MySqlParameter[] parameters)
         {
+            // Check if the MySQL connection is null
             if (GetMySQLConnection() == null)
+            {
+                // If it is, return a null table
                 return null;
-
+            }
+                
+            // Initialize a MySQLDataReader to be null
             MySqlDataReader reader = null;
 
+            // Initialize a new DataTable
             DataTable dataTable = new DataTable();
-            /*
-            MySqlCommand command = new MySqlCommand("GetPeople", connection);
-            command.CommandType = CommandType.StoredProcedure;
-            MySqlDataReader reader = command.ExecuteReader();
-            
-            MySqlCommand myCommand = new MySqlCommand(procedureName);
-            myCommand.Connection = connection;
-            myCommand.CommandType = CommandType.StoredProcedure;
 
-            reader = myCommand.ExecuteReader();
-
-            dataTable.Load(reader);
-            */
+            // Create a new MySqlAdapter that has the procedure name and MySql connection specified
             MySqlDataAdapter adapter = new MySqlDataAdapter(procedureName, GetMySQLConnection());
+
+            // Set the command type of the MySqlAdapter to a stored procedure
             adapter.SelectCommand.CommandType = CommandType.StoredProcedure;
             
             // Open the connection
@@ -134,20 +184,26 @@ namespace ProjectTemp.Helpers
 
             try
             {
+                // Set the parameters of the stored procedures equal to the passed in parameter
                 adapter.SelectCommand.Parameters.AddRange(parameters);
+
+                // Execute the stored procedure specified and fill the dataTable initialized earlier
+                // with the tuples retreived from the stored procedure
                 adapter.Fill(dataTable);
             }
             catch (Exception er)
             {
+                // If there was an exception executing the query, set the datable equal to null
                 dataTable = null;
             }
 
-            // Make sure to close the connection
+            // Make sure to safely close the connection
             if (adapter.SelectCommand.Connection != null && adapter.SelectCommand.Connection.State == ConnectionState.Open)
             {
                 adapter.SelectCommand.Connection.Close();
             }
             
+            // Return the data table
             return dataTable;
         }
 
@@ -156,7 +212,7 @@ namespace ProjectTemp.Helpers
         /// </summary>
         /// <returns></returns>
         /// 
-
+        /*
         public DataSet Execute_Data_Dataset_Store_Procedure(string procedureName, MySqlParameter[] parameters)
         {
             if (GetMySQLConnection() == null)
@@ -183,24 +239,31 @@ namespace ProjectTemp.Helpers
 
             return dataset;
         }
+        */
 
-        /// <summary>
-        /// This method check if the connection string is valid or not
-        /// </summary>
-        /// <returns></returns>
-
+        /**
+         * Description: This method checks if the connection string is a valid connection string or not
+         * 
+         * Returns: this method returns a boolean value; true if the connection is valid, false otherwise
+        */
         public bool CheckDatabaseConnectionString(string ConnectionString)
         {
             try
             {
-
+                // Create a new MySqlConnection with the specified connection string passed in as a parameter
                 MySqlConnection con = new MySqlConnection(ConnectionString);
+
+                // Open the connection
                 con.Open();
+
+                // Close the connection
                 con.Close();
+
                 return true;
             }
             catch
             {
+                // If there was an exception, return false
                 return false;
             }
 
@@ -208,7 +271,8 @@ namespace ProjectTemp.Helpers
         }
         #endregion
 
-        #region Examples
+        #region StoredProcedures
+        /*
         public int updateEmployee(int empId, string empName, DateTime embBDate, string empAddress)
         {
 
@@ -221,55 +285,108 @@ namespace ProjectTemp.Helpers
 
             return Execute_Non_Query_Store_Procedure("SP_UpdateEmpInfo", Parameters);//Make sure procedure name matches the name given in your RDBMS
         }
+        */
 
-
+        
+        /**
+         * Description: This method will add a new user to the database by calling the specified stored procedure
+         * 
+         * Parameters: 
+         * string email_id : the email of the user
+         * string first_name : the first name of the user
+         * string last_name : the last name of the user
+         * int admin_id : the id of the admin that added the user
+         * 
+         * Return: This method will return an int where it represents the user id of the newly inserted user
+         */
         public int addUser(string email_id, string first_name, string last_name, int admin_id)
         {
+            // Set up the IN parameters needed for the stored procedure
             MySqlParameter[] Parameters = new MySqlParameter[5];
             Parameters[0] = new MySqlParameter("@email_id", email_id);
             Parameters[1] = new MySqlParameter("@first_name", first_name);
             Parameters[2] = new MySqlParameter("@last_name", last_name);
             Parameters[3] = new MySqlParameter("@admin_id", admin_id);
 
+            // Set the OUT parameter needed for the stored procedure
             Parameters[4] = new MySqlParameter("@userID", MySqlDbType.Int32);
             Parameters[4].Direction = ParameterDirection.Output;
 
-
+            // Execute the non query stored procedure
             return Execute_Non_Query_Store_Procedure("addUser", Parameters, "userID");
         }
+
+        /**
+         * Description: This method will retrieve the info and facts of a specified city
+         * 
+         * Parameters:
+         * int cityNumber : the city id of the city we wish to retrieve the info
+         * 
+         * Return: this method will return a DataTable of the retrieved tuples of the stored procedure
+         */
         public DataTable getInfoAndFactsByCityID(int cityNumber)
         {
+            // Set up the IN parameters needed for the stored procedure
             MySqlParameter[] Parameters = new MySqlParameter[1];
             Parameters[0] = new MySqlParameter("@cityNumber", cityNumber);
 
+            // Execute the query stored procedure
             return Execute_Data_Query_Store_Procedure("infoAndFactsFromCity", Parameters);
         }
 
+        /**
+         * Description: This method will retrieve the attraction with the most number of recommendations
+         *              with a specified city in mind
+         * 
+         * Parameters:
+         * int cityNumber : the city id of the city we wish to retrieve the info for
+         * 
+         * Return: this method will return a DataTable of the retrieved tuples of the stored procedure
+         */
         public DataTable getAttractionWithMostRecommendationsByCityID(int cityNumber)
         {
+            // Set up the IN parameters needed for the stored procedure
             MySqlParameter[] Parameters = new MySqlParameter[1];
             Parameters[0] = new MySqlParameter("@cityNumber", cityNumber);
 
+            // Execute the query stored procedure
             return Execute_Data_Query_Store_Procedure("attractionMostRecommendationsByCityID", Parameters);
         }
 
-
+        /**
+         * Description: This method will retrieve the tour guides by the specified tourist city
+         * 
+         * Parameters:
+         * int touristCityID : the city id of the city we wish to retrieve the info for
+         * 
+         * Return: this method will return a DataTable of the retrieved tuples of the stored procedure
+         */
         public DataTable getTourGuidesByTouristCityID(int touristCityID)
         {
+            // Set up the IN parameters needed for the stored procedure
             MySqlParameter[] Parameters = new MySqlParameter[1];
             Parameters[0] = new MySqlParameter("@touristCityID", touristCityID);
 
+            // Execute the query stored procedure
             return Execute_Data_Query_Store_Procedure("tourGuidesByTouristCityID", Parameters);
         }
 
+        /**
+         * Description: This method will retrieve nationalities of the users in the system
+         * 
+         * Return: this method will return a DataTable of the retrieved tuples of the stored procedure
+         */
         public DataTable GetTouristNationality()
         {
+            // Set up the parameters needed for the stored procedure (in this case there are none)
             MySqlParameter[] Parameters = new MySqlParameter[0];
 
+            // Execute the query stored procedure
             return Execute_Data_Query_Store_Procedure("touristNationality", Parameters);
 
         }
 
+        /*
         public int updateSalaries()
         {
             MySqlParameter[] Parameters = new MySqlParameter[0];
@@ -277,7 +394,9 @@ namespace ProjectTemp.Helpers
 
             return Execute_Non_Query_Store_Procedure("UpdateSalary", Parameters);
         }
-        
+        */
+
+
         public DataTable getRecommendations_retrieve(string attraction_name)
         {
             MySqlParameter[] Parameters = new MySqlParameter[1];

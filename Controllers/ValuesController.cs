@@ -11,11 +11,19 @@ using MySql.Data.MySqlClient;
 
 namespace ProjectTemp.Controllers
 {
+    /**
+     * Description: This sets the route api/valuesController as an ApiController
+     */
     [Route("api/ValuesController")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        // Test Connection To Database
+
+        /**
+         * Description: This method allowed us test the connection string to our database
+         * 
+         * return: this method returns an OkObjectResult and produces a Status200OK response 
+         */
         [HttpGet]
         [Route("TestConnection")]
         public ActionResult<bool> TestConnection()
