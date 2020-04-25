@@ -39,29 +39,29 @@ VALUES (3,'Issiah','Cans');
 
 # Add 8 businesses
 # The city is Miami
-INSERT INTO travellors.local_business (name,address,user_personal_information,city_id)
-VALUES ('Beach Fronts Inc.','3001 Ventura ST SW','',2);
+INSERT INTO travellors.local_business (name,address,city_id)
+VALUES ('Beach Fronts Inc.','3001 Ventura ST SW',2);
 
-INSERT INTO travellors.local_business (name,address,user_personal_information,city_id)
-VALUES ('Mountaniers Organization','8001 Mountain ST SW','',2);
+INSERT INTO travellors.local_business (name,address,city_id)
+VALUES ('Mountaniers Organization','8001 Mountain ST SW',2);
 
-INSERT INTO travellors.local_business (name,address,user_personal_information,city_id)
-VALUES ('Foodies Smoothies','1234 Cherry Road N','',2);
+INSERT INTO travellors.local_business (name,address,city_id)
+VALUES ('Foodies Smoothies','1234 Cherry Road N',2);
 
-INSERT INTO travellors.local_business (name,address,user_personal_information,city_id)
-VALUES ('Fashion Central','1234 Runway Ridge SE','',2);
+INSERT INTO travellors.local_business (name,address,city_id)
+VALUES ('Fashion Central','1234 Runway Ridge SE',2);
 
-INSERT INTO travellors.local_business (name,address,user_personal_information,city_id)
-VALUES ('Museums Galore','1891 Hidden History Road NW','',2);
+INSERT INTO travellors.local_business (name,address,city_id)
+VALUES ('Museums Galore','1891 Hidden History Road NW',2);
 
-INSERT INTO travellors.local_business (name,address,user_personal_information,city_id)
-VALUES ('10-9 Clubs','11 Party Lane NW','',2);
+INSERT INTO travellors.local_business (name,address,city_id)
+VALUES ('10-9 Clubs','11 Party Lane NW',2);
 
-INSERT INTO travellors.local_business (name,address,user_personal_information,city_id)
-VALUES ('Soccer Fans 4 U','90 Golden Ball Way NW','',2);
+INSERT INTO travellors.local_business (name,address,city_id)
+VALUES ('Soccer Fans 4 U','90 Golden Ball Way NW',2);
 
-INSERT INTO travellors.local_business (name,address,user_personal_information,city_id)
-VALUES ('Pio','90 Lomo Road NW','',2);
+INSERT INTO travellors.local_business (name,address,city_id)
+VALUES ('Pio','90 Lomo Road NW',2);
 
 
 # Add 10 Attractions
@@ -235,7 +235,7 @@ INSERT INTO travellors.transportation(transport_type,fare)
 VALUES ('Taxi',13);
 
 # Add some Recommendations
-INSERT INTO travellors.recommendation(title,creation_date,posting_time,post_rating,tips,description,personal_information,attraction_id,city_id,local_uid,tour_guide_uid,tourist_id)
+INSERT INTO travellors.recommendation(title,creation_date,posting_time,post_rating,tips,description,attraction_id,city_id,local_uid,tour_guide_uid,tourist_id)
 VALUES ("The Day At The Beach",
 		"2020-01-01",
         "19:30:10",
@@ -250,10 +250,9 @@ VALUES ("The Day At The Beach",
         there are stories of seaguls following the beach goer back to their
         house.  Quite a scary folk-tale.
         Update: Seagul ate my hot dog :(",
-        "",
         1,2,1,1,6);
 
-INSERT INTO travellors.recommendation(title,creation_date,posting_time,post_rating,tips,description,personal_information,attraction_id,city_id,local_uid,tour_guide_uid,tourist_id)
+INSERT INTO travellors.recommendation(title,creation_date,posting_time,post_rating,tips,description,attraction_id,city_id,local_uid,tour_guide_uid,tourist_id)
 VALUES ("Movie Night",
 		"2020-01-01",
         "20:30:10",
@@ -262,10 +261,9 @@ VALUES ("Movie Night",
         "Whats better than a movie? A drive in movie! This gem has the best of both world;
         the comfortableness and convenience of your own car plus all you can eat popcorn.  This
         is a true gem!",
-        "",
         9,2,2,1,7);
         
-INSERT INTO travellors.recommendation(title,creation_date,posting_time,post_rating,tips,description,personal_information,attraction_id,city_id,local_uid,tour_guide_uid,tourist_id)
+INSERT INTO travellors.recommendation(title,creation_date,posting_time,post_rating,tips,description,attraction_id,city_id,local_uid,tour_guide_uid,tourist_id)
 VALUES ("Night at the Museum",
 		"2020-02-01",
         "22:30:10",
@@ -274,7 +272,6 @@ VALUES ("Night at the Museum",
         "Have you watched night at the museum 2?? We'll if you have, you know that the museum really comes
         to life at night!  So does our speical Miami Louvre!  One of a kind merging of classical counterfeit
         art with ancient pre-historical exhibits!  Fun for the whole family.",
-        "",
         6,3,2,4,8);
         
 INSERT INTO `travellors`.`recommendation` (`title`, `creation_date`, `posting_time`, `post_rating`, `tips`, `description`, `attraction_id`, `city_id`, `local_uid`, `tour_guide_uid`, `tourist_id`) 
