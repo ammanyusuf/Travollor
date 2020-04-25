@@ -30,32 +30,6 @@ END //
 
 DELIMITER ;
 
-# Good too
-SELECT DISTINCT c.name as city_name, a.interesting_fact, a.attraction_description, 
-group_concat(DISTINCT a.name ORDER BY a.name ASC SEPARATOR ', ') as attraction_names,
-group_concat(DISTINCT r.type ORDER BY r.type ASC SEPARATOR ', ') as restaurant_types, 
-group_concat(DISTINCT re.recreation_type ORDER BY re.recreation_type ASC SEPARATOR ', ') as recreation_types,
-group_concat(DISTINCT cs.admission_price ORDER BY cs.admission_price ASC SEPARATOR ', ') as cultural_site_price,
-group_concat(DISTINCT p.parks ORDER BY p.parks ASC SEPARATOR ', ') as parks_name,
-group_concat(DISTINCT en.entertainment_type ORDER BY en.entertainment_type ASC SEPARATOR ', ') as entertainment_type
-FROM city as c, attraction as a, restaurant as r, recreation as re, cultural_site as cs, parks as p, entertainment as en
-WHERE c.city_id = 2 and c.city_id = a.city_id and a.attraction_id IN (
-	SELECT DISTINCT r.attraction_id
-    FROM restaurant as r
-    UNION
-    SELECT DISTINCT re.attraction_id
-    FROM recreation as re
-    UNION 
-    SELECT DISTINCT cs.attraction_id
-    FROM cultural_site as cs
-    UNION 
-    SELECT DISTINCT p.attraction_id
-    FROM parks as p
-    UNION
-    SELECT DISTINCT en.attraction_id
-    FROM entertainment as en
-);
-
 # Use case 2) GET: Endpoint for retrieving the attraction that has the most recommendations. 
 # Setting post_rating >= 8 to be a good rating for a post
 
@@ -96,7 +70,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `touristNationality` ()
 BEGIN
-	SELECT DISTINCT *
+	SELECT DISTINCT nationality
     FROM tourist;
 END //
 DELIMITER ;
