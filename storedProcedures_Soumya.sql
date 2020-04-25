@@ -36,13 +36,12 @@ DROP procedure IF EXISTS `add_recommendation`;
 
 DELIMITER $$
 USE `travellors`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_recommendation`(IN rtitle varchar(255), IN rcreation_date DATE, IN rposting_time TIME, 
-IN rpost_rating INT, IN rtips VARCHAR(255), IN rdescription VARCHAR(1000), IN rpersonal_info VARCHAR(255),
-IN rattraction_id INT, IN rcity_id INT,IN rlocal_uid INT, IN rtour_guide_id INT, IN rtourist_id INT, OUT title_name varchar(255))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_recommendation`(IN rtitle varchar(255), IN rcreation_date DATE, IN rposting_time TIME, IN rtips VARCHAR(255), IN rdescription VARCHAR(1000), 
+IN rattraction_id INT, IN rcity_id INT,IN rlocal_uid INT, OUT title_name varchar(255))
 BEGIN
-INSERT INTO travellors.recommendation(title,creation_date,posting_time,post_rating,tips,description,
-personal_information,attraction_id,city_id,local_uid,tour_guide_uid,tourist_id) values (rtitle, rcreation_date,rposting_time,
-rpost_rating,rtips,rdescription,rpersonal_info,rattraction_id,rcity_id,rlocal_uid,rtour_guide_id, rtourist_id);
+INSERT INTO travellors.recommendation(title,creation_date,posting_time,tips,description
+,attraction_id,city_id,local_uid) values (rtitle, rcreation_date,rposting_time
+,rtips,rdescription,rattraction_id,rcity_id,rlocal_uid);
 
  SELECT title
     INTO title_name
@@ -52,4 +51,3 @@ rpost_rating,rtips,rdescription,rpersonal_info,rattraction_id,rcity_id,rlocal_ui
 END$$
 
 DELIMITER ;
-
