@@ -174,33 +174,23 @@ namespace ProjectTemp.Controllers
          * Description: This method will execute a Http POST request and add a new recommendation
          *              from the given JObject input
          */
-        //POST api/ValuesController/PostAdd_Recommendation
-        [HttpPost]
-        [Route("PostAdd_Recommendation")]
-        public ActionResult<IEnumerable<string>> PostAdd_Recommendation([FromBody] JObject rec)
-            {
-            // Retrieve the attributes from the json object to be passed through the function
-            string title = rec["rtitle"].ToString();
-            DateTime creation_date= (DateTime)rec["rcreation_date"];
-            DateTime posting_time = (DateTime)rec["rposting_time"];
-            int post_rating = (int)rec["rpost_rating"];
-            string tips = rec["rtips"].ToString();
-            string description = rec["rdescription"].ToString();
-            string personal_info = rec["rpersonal_info"].ToString();
-            int attraction_id = (int)rec["rattraction_id"];
-            int city_id = (int)rec["rcity_id"];
-            int local_uid= (int)rec["rlocal_uid"];
-            int tour_guide_id=(int)rec["rtour_guide_id"];
-            int tourist_id =(int)rec["rtourist_id"];
-            string title_name = rec["rtitle"].ToString();
-
-            // Create a new DatabaseModel object
-            DatabaseModel dbm = new DatabaseModel();
-
-            // Execute the stored procedure and set the response from the stored procedure equal to res
-            string res = dbm.PostAdd_Recommendation(title,creation_date,posting_time,post_rating,tips,description,personal_info,
-                                                    attraction_id,city_id,local_uid,tour_guide_id,tourist_id);
-            return Ok(res.ToString());
+         //POST api/ValuesController/PostAdd_Recommendation
+         [HttpPost]
+         [Route("PostAdd_Recommendation")]
+         public ActionResult<IEnumerable<string>> PostAdd_Recommendation([FromBody] JObject rec)
+         {
+                string title = rec["rtitle"].ToString();
+                DateTime creation_date= (DateTime)rec["rcreation_date"];
+                DateTime posting_time = (DateTime)rec["rposting_time"];
+                string tips = rec["rtips"].ToString();
+                string description = rec["rdescription"].ToString();
+                int attraction_id = (int)rec["rattraction_id"];
+                int city_id = (int)rec["rcity_id"];
+                int local_uid= (int)rec["rlocal_uid"];
+                DatabaseModel dbm = new DatabaseModel();
+                string res = dbm.PostAdd_Recommendation(title,creation_date,posting_time,tips,description,
+                attraction_id,city_id,local_uid);
+                return Ok(res.ToString());
         }
 
         /**
