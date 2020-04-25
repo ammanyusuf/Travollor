@@ -379,46 +379,30 @@ namespace ProjectTemp.Helpers
          * string title : the title of the recommendation
          * DateTime creation_date : the creation date of the recommendation
          * DateTime posting_time : the time the recommendation was posted
-         * int post_rating : the rating of the post/recommendation
          * string tips : the tips that are part of the recommendation
-         * string description : the descritption of the recommendation
-         * string personal_info : the personal information of the user
+         * string description : the descritption of the recommendatio
          * int attraction_id : the attraction id that the recommendation was written for
          * int city_id : the city id of the city the attraction is situated in
          * int local_uid : the locad user id of the local that wrote the recommendation
-         * int tour_guide_id : the tour guide id of the tour guide the recommendaiton recommended
-         * int tourist_id : the tourist id of the tourist that read the recommendation
          * 
          * Return: This method will return the title of the recommendation just added
          */
         public string PostAdd_Recommendation(string title, DateTime creation_date, DateTime posting_time , 
-                                             int post_rating, string tips, string description, string personal_info,
-                                             int attraction_id, int city_id, int local_uid, int tour_guide_id, int tourist_id)
+                                             string tips, string description,int attraction_id, int city_id, int local_uid)
         {
-            // Set up the IN parameters needed for the stored procedure
-            MySqlParameter[] Parameters = new MySqlParameter[13];
-            Parameters[0] = new MySqlParameter("@rtitle", title);
+            MySqlParameter[] Parameters = new MySqlParameter[9];
+            Parameters[0] = new MySqlParameter("@rtitle", title);//Make sure parameters name matches thenames given in your stored procedure
             Parameters[1] = new MySqlParameter("@rcreation_date", creation_date);
             Parameters[2] = new MySqlParameter("@rposting_time", posting_time);
-            Parameters[3] = new MySqlParameter("@rpost_rating",post_rating);
-            Parameters[4] = new MySqlParameter("@rtips",tips);
-            Parameters[5] = new MySqlParameter("@rdescription",description);
-            Parameters[6] = new MySqlParameter("@rpersonal_info",personal_info);
-            Parameters[7] = new MySqlParameter("@rattraction_id",attraction_id);
-            Parameters[8] = new MySqlParameter("@rcity_id",city_id);
-            Parameters[9] = new MySqlParameter("@rlocal_uid",local_uid);
-            Parameters[10] = new MySqlParameter("@rtour_guide_id",tour_guide_id);
-            Parameters[11] = new MySqlParameter("@rtourist_id",tourist_id);
-
-            // Set the OUT parameter needed for the stored procedure
-            Parameters[12] = new MySqlParameter("@title_name", MySqlDbType.VarChar);
-            Parameters[12].Direction = ParameterDirection.Output;
-
-            // Execute the query stored procedure
-            Execute_Non_Query_Store_Procedure("add_Recommendation", Parameters, Parameters[12].ToString());
+            Parameters[3] = new MySqlParameter("@rtips",tips);
+            Parameters[4] = new MySqlParameter("@rdescription",description);
+            Parameters[5] = new MySqlParameter("@rattraction_id",attraction_id);
+            Parameters[6] = new MySqlParameter("@rcity_id",city_id);
+            Parameters[7] = new MySqlParameter("@rlocal_uid",local_uid);
+            Parameters[8] = new MySqlParameter("@title_name", MySqlDbType.VarChar);
+            Parameters[8].Direction = ParameterDirection.Output;
+            Execute_Non_Query_Store_Procedure("add_Recommendation", Parameters, Parameters[8].ToString());
             string returnValue = title;
-
-            // Return the title
             return returnValue;
         }
 
