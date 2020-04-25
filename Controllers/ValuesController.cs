@@ -104,8 +104,8 @@ namespace ProjectTemp.Controllers
             DataTable dt = dbm.GetTouristNationality();
             foreach (DataRow dr in dt.Rows)
             {
-                string nationality = dr[1].ToString();
-                touristList.Add(dr[1].ToString());
+                string nationality = dr[0].ToString();
+                touristList.Add(dr[0].ToString());
             }
             return Ok(touristList);
         }
