@@ -110,17 +110,6 @@ namespace ProjectTemp.Controllers
             return Ok(touristList);
         }
 
-        /*
-        // GET api/ValuesController/GetValuesById?id=5
-        [HttpGet]
-        [Route("GetValuesById")]
-        public ActionResult<IEnumerable<string>> GetValuesById(int id)
-        {
-            return new string[] { "value1" };
-        }
-        */
-
-
         /**
          * Description: This method will execute a Http POST request and add a new user
          *              from the given JObject input

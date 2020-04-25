@@ -96,7 +96,6 @@ namespace ProjectTemp.Helpers
             return successfulQuery;
         }
 
-
         /**
          * Description: This method is responisble to to execute a query in in the MySQL DBMS and return if 
          *              the query was successful or not. May be used for insert,update, and delete
@@ -112,7 +111,6 @@ namespace ProjectTemp.Helpers
                 return -1;
             }
                 
-
             int successfulQuery = 1;
 
             // Create a new MySqlCommand object that will communicate with the MySQL database
@@ -121,7 +119,6 @@ namespace ProjectTemp.Helpers
             // Set the command type to a stored procedure
             mySqlCommand.CommandType = CommandType.StoredProcedure;
 
-            
             try
             {
                 // Add the parameters passed in to the parameters of the stored procedure
@@ -207,40 +204,6 @@ namespace ProjectTemp.Helpers
             return dataTable;
         }
 
-        /// <summary>
-        /// This method is responisble to to execute to rertieve data from your RDBSM by executing a stored procedure. Mainly used when more than one table is being returned.
-        /// </summary>
-        /// <returns></returns>
-        /// 
-        /*
-        public DataSet Execute_Data_Dataset_Store_Procedure(string procedureName, MySqlParameter[] parameters)
-        {
-            if (GetMySQLConnection() == null)
-                return null;
-
-            DataSet dataset = new DataSet();
-            MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(procedureName, GetMySQLConnection());
-            mySqlDataAdapter.SelectCommand.CommandType = CommandType.StoredProcedure;
-
-            try
-            {
-                mySqlDataAdapter.SelectCommand.Parameters.AddRange(parameters);
-                mySqlDataAdapter.SelectCommand.Connection.Open();
-                mySqlDataAdapter.Fill(dataset);
-            }
-            catch (Exception er)
-            {
-                string ee = er.ToString();
-                dataset = null;
-            }
-
-            if (mySqlDataAdapter.SelectCommand.Connection != null && mySqlDataAdapter.SelectCommand.Connection.State == ConnectionState.Open)
-                mySqlDataAdapter.SelectCommand.Connection.Close();
-
-            return dataset;
-        }
-        */
-
         /**
          * Description: This method checks if the connection string is a valid connection string or not
          * 
@@ -272,22 +235,7 @@ namespace ProjectTemp.Helpers
         #endregion
 
         #region StoredProcedures
-        /*
-        public int updateEmployee(int empId, string empName, DateTime embBDate, string empAddress)
-        {
 
-
-            MySqlParameter[] Parameters = new MySqlParameter[4]; // Specifc number of parametrs for this tored procedure. 
-            Parameters[0] = new MySqlParameter("@empName", empName);//Make sure parameters name matches thenames given in your stored procedure
-            Parameters[1] = new MySqlParameter("@embBDate", embBDate);
-            Parameters[2] = new MySqlParameter("@empAddress", empAddress);
-            Parameters[3] = new MySqlParameter("@empId", empId);
-
-            return Execute_Non_Query_Store_Procedure("SP_UpdateEmpInfo", Parameters);//Make sure procedure name matches the name given in your RDBMS
-        }
-        */
-
-        
         /**
          * Description: This method will add a new user to the database by calling the specified stored procedure
          * 
@@ -385,16 +333,6 @@ namespace ProjectTemp.Helpers
             return Execute_Data_Query_Store_Procedure("touristNationality", Parameters);
 
         }
-
-        /*
-        public int updateSalaries()
-        {
-            MySqlParameter[] Parameters = new MySqlParameter[0];
-
-
-            return Execute_Non_Query_Store_Procedure("UpdateSalary", Parameters);
-        }
-        */
 
         /**
          * Description: This method will retrieve the recommendations of a specified attraction
