@@ -396,28 +396,70 @@ namespace ProjectTemp.Helpers
         }
         */
 
-
+        /**
+         * Description: This method will retrieve the recommendations of a specified attraction
+         * 
+         * Parameters:
+         * int attraction_name : the attraction name we wish to find the recommendations of
+         * 
+         * Return: this method will return a DataTable of the retrieved tuples of the stored procedure
+         */
         public DataTable getRecommendations_retrieve(string attraction_name)
         {
+            // Set up the IN parameters needed for the stored procedure
             MySqlParameter[] Parameters = new MySqlParameter[1];
             Parameters[0] = new MySqlParameter("@attraction_name", attraction_name);
+
+            // Execute the query stored procedure
             return Execute_Data_Query_Store_Procedure("recommendations_retrieve", Parameters);
 
         }
 
+        /**
+         * Description: This method will retrieve the local business information for a given city
+         * 
+         * Parameters:
+         * int city_id : the city id of the city we wish to retrieve the local business information from
+         * 
+         * Return: this method will return a DataTable of the retrieved tuples of the stored procedure
+         */
         public DataTable getLocal_business_info(int city_id)
         {
+            // Set up the IN parameters needed for the stored procedure
             MySqlParameter[] Parameters = new MySqlParameter[1];
             Parameters[0] = new MySqlParameter("@city_id", city_id);
+
+            // Execute the query stored procedure
             return Execute_Data_Query_Store_Procedure("local_business_info", Parameters);
 
         }
-        
-      public string PostAdd_Recommendation(string title, DateTime creation_date, DateTime posting_time , 
-        int post_rating, string tips, string description, string personal_info,
-        int attraction_id, int city_id, int local_uid, int tour_guide_id, int tourist_id){
+
+        /**
+         * Description: This method will add a new recommendaiton to the database by calling the specified stored procedure
+         * 
+         * Parameters: 
+         * string title : the title of the recommendation
+         * DateTime creation_date : the creation date of the recommendation
+         * DateTime posting_time : the time the recommendation was posted
+         * int post_rating : the rating of the post/recommendation
+         * string tips : the tips that are part of the recommendation
+         * string description : the descritption of the recommendation
+         * string personal_info : the personal information of the user
+         * int attraction_id : the attraction id that the recommendation was written for
+         * int city_id : the city id of the city the attraction is situated in
+         * int local_uid : the locad user id of the local that wrote the recommendation
+         * int tour_guide_id : the tour guide id of the tour guide the recommendaiton recommended
+         * int tourist_id : the tourist id of the tourist that read the recommendation
+         * 
+         * Return: This method will return the title of the recommendation just added
+         */
+        public string PostAdd_Recommendation(string title, DateTime creation_date, DateTime posting_time , 
+                                             int post_rating, string tips, string description, string personal_info,
+                                             int attraction_id, int city_id, int local_uid, int tour_guide_id, int tourist_id)
+        {
+            // Set up the IN parameters needed for the stored procedure
             MySqlParameter[] Parameters = new MySqlParameter[13];
-            Parameters[0] = new MySqlParameter("@rtitle", title);//Make sure parameters name matches thenames given in your stored procedure
+            Parameters[0] = new MySqlParameter("@rtitle", title);
             Parameters[1] = new MySqlParameter("@rcreation_date", creation_date);
             Parameters[2] = new MySqlParameter("@rposting_time", posting_time);
             Parameters[3] = new MySqlParameter("@rpost_rating",post_rating);
@@ -429,52 +471,102 @@ namespace ProjectTemp.Helpers
             Parameters[9] = new MySqlParameter("@rlocal_uid",local_uid);
             Parameters[10] = new MySqlParameter("@rtour_guide_id",tour_guide_id);
             Parameters[11] = new MySqlParameter("@rtourist_id",tourist_id);
+
+            // Set the OUT parameter needed for the stored procedure
             Parameters[12] = new MySqlParameter("@title_name", MySqlDbType.VarChar);
             Parameters[12].Direction = ParameterDirection.Output;
+
+            // Execute the query stored procedure
             Execute_Non_Query_Store_Procedure("add_Recommendation", Parameters, Parameters[12].ToString());
             string returnValue = title;
+
+            // Return the title
             return returnValue;
         }
 
+        /**
+         * Description: This method will update the local's rating by adding the passed in rating to the already
+         *              existing rating
+         * 
+         * Parameters: 
+         * int uid : the id of the user that getting their rating updated
+         * int updated_rating : the rating that we are adding to the user's already existing rating
+         * 
+         * Return: This method will return an int where it represents the id of the user that had their rating updated
+         */
         public int updateLocalRatings(int uid, int updated_rating)
         {
+            // Set up the IN parameters needed for the stored procedure
             MySqlParameter[] parameters = new MySqlParameter[3];
-
             parameters[0] = new MySqlParameter("@uid", uid);
             parameters[1] = new MySqlParameter("@updated_rating", updated_rating);
+
+            // Set the OUT parameter needed for the stored procedure
             parameters[2] = new MySqlParameter("@new_rating", MySqlDbType.Int32);
             parameters[2].Direction = ParameterDirection.Output;
 
+            // Execute the query stored procedure
             return Execute_Non_Query_Store_Procedure("updateLocalRatings", parameters, parameters[2].ToString());
 
         }
 
+        /**
+         * Description: This method will add a new local into the system based on super local input
+         * 
+         * Parameters: 
+         * int super_local_uid : the id of the super local that is adding the local
+         * int local_uid : the user id of the local that is being added to the local table
+         * int city_id : the city id of the city that the local resides in
+         * bool super_local_flag : the true or false value we set to the local
+         * 
+         * Return: This method will return an int where it represents the id of the local that was just inserted 
+         *         into the local table
+         */
         public int addLocal(int super_local_uid, int local_uid, int city_id, bool super_local_flag)
         {
+            // Set up the IN parameters needed for the stored procedure
             MySqlParameter[] parameters = new MySqlParameter[5];
-
             parameters[0] = new MySqlParameter("@super_local_user_id", super_local_uid);
             parameters[1] = new MySqlParameter("@local_user_id", local_uid);
             parameters[2] = new MySqlParameter("@city_id", city_id);
             parameters[3] = new MySqlParameter("@super_local_flag_input", super_local_flag);
+
+            // Set the OUT parameter needed for the stored procedure
             parameters[4] = new MySqlParameter("@inserted_user_id", MySqlDbType.Int32);
             parameters[4].Direction = ParameterDirection.Output;
 
+            // Execute the query stored procedure
             return Execute_Non_Query_Store_Procedure("addLocal", parameters, parameters[4].ToString());
         }
 
+        /**
+         * Description: This method will verify (add) a new local business into the system based on super local input
+         * 
+         * Parameters: 
+         * int super_local_uid : the id of the super local that is adding the local business
+         * int business_license_number : the business liscnece number of the business that is being verified/added
+         * string name : the name of the business the super local is adding
+         * string address : the address of the business that is being added
+         * int city_id : the city id of the city that the business is situated in
+         * 
+         * Return: This method will return an int where it represents the business liscence number of the business
+         *         that was just added
+         */
         public int verifyLocalBusiness(int super_local_uid, int business_license_number, string name, string address, int city_id)
         {
+            // Set up the IN parameters needed for the stored procedure
             MySqlParameter[] parameters = new MySqlParameter[6];
-
             parameters[0] = new MySqlParameter("@super_local_UID_1", super_local_uid);
             parameters[1] = new MySqlParameter("@business_license_number1", business_license_number);
             parameters[2] = new MySqlParameter("@name1", name);
             parameters[3] = new MySqlParameter("@address1", address);
             parameters[4] = new MySqlParameter("@city_id1", city_id);
+
+            // Set the OUT parameter needed for the stored procedure
             parameters[5] = new MySqlParameter("@out_bln", MySqlDbType.Int32);
             parameters[5].Direction = ParameterDirection.Output;
 
+            // Execute the query stored procedure
             return Execute_Non_Query_Store_Procedure("verifyLocalBusiness", parameters, parameters[5].ToString());
         }
 
