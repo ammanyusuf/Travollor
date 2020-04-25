@@ -69,8 +69,8 @@ namespace ProjectTemp.Controllers
             DataTable dt = dbm.GetTouristNationality();
             foreach (DataRow dr in dt.Rows)
             {
-                string nationality = dr[1].ToString();
-                touristList.Add(dr[1].ToString());
+                string nationality = dr[0].ToString();
+                touristList.Add(dr[0].ToString());
             }
             return Ok(touristList);
         }
@@ -89,12 +89,12 @@ namespace ProjectTemp.Controllers
         public ActionResult<IEnumerable<string>> addUser([FromBody] JObject user)
         {
             string userEmail = user["userEmail"].ToString();
-            string userName = user["userName"].ToString();
+            string userFirstName = user["userFirstName"].ToString();
             string userLastName = user["userLastName"].ToString();
             int userAdminID = (int)user["userAdminID"];
 
             DatabaseModel dbm = new DatabaseModel();
-            int res = dbm.addUser(userEmail, userName, userLastName, userAdminID);
+            int res = dbm.addUser(userEmail, userFirstName, userLastName, userAdminID);
 
             return Ok(res);
         }

@@ -286,7 +286,9 @@ VALUES ('Refreshing Smoothies',
         'After a long day at the beach, what\'s better than taking in a cool yummy smoothie?! What are you waiting for? Go get your smoothie!',
         '9', '2', '2', '3', '9');
         
-	
+INSERT INTO `travellors`.`recommendation` (`title`, `creation_date`, `posting_time`, `post_rating`, `tips`, `description`, `attraction_id`, `city_id`, `local_uid`, `tour_guide_uid`, `tourist_id`) 
+VALUES ('Beach day', '2020-01-01', '22:30:10', '8', 'Lie along the front side to get the most comfty place', 'Beautiful beach and warm water w/ dolphins', '1', '2', '1', '1', '7');
+
 # Add to visit table
 INSERT INTO travellors.visit(attraction_id,tourist_uid)
 VALUES (1,6);

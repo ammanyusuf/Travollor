@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\amman\\GitProjects\\winter2020\\Travollor\\ProjectTemp.csproj": {}
+    "C:\\Users\\isabe\\OneDrive - University of Calgary\\University\\3rd year 2019-2020\\CPSC 471\\Project\\Travollor\\ProjectTemp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\amman\\GitProjects\\winter2020\\Travollor\\ProjectTemp.csproj": {
+    "C:\\Users\\isabe\\OneDrive - University of Calgary\\University\\3rd year 2019-2020\\CPSC 471\\Project\\Travollor\\ProjectTemp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\amman\\GitProjects\\winter2020\\Travollor\\ProjectTemp.csproj",
+        "projectUniqueName": "C:\\Users\\isabe\\OneDrive - University of Calgary\\University\\3rd year 2019-2020\\CPSC 471\\Project\\Travollor\\ProjectTemp.csproj",
         "projectName": "ProjectTemp",
-        "projectPath": "C:\\Users\\amman\\GitProjects\\winter2020\\Travollor\\ProjectTemp.csproj",
-        "packagesPath": "C:\\Users\\amman\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\amman\\GitProjects\\winter2020\\Travollor\\obj\\",
+        "projectPath": "C:\\Users\\isabe\\OneDrive - University of Calgary\\University\\3rd year 2019-2020\\CPSC 471\\Project\\Travollor\\ProjectTemp.csproj",
+        "packagesPath": "C:\\Users\\isabe\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\isabe\\OneDrive - University of Calgary\\University\\3rd year 2019-2020\\CPSC 471\\Project\\Travollor\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\amman\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\isabe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
