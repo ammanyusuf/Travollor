@@ -98,6 +98,9 @@ VALUES ('Drive In Movie Inn','Houses space for 100 cars per viewing!','Old schoo
 INSERT INTO travellors.attraction (name,interesting_fact,attraction_description,city_id,business_license_number)
 VALUES ('Ice Cold Smoothies','Smoothies are slightly below ice cold','Refresh yourself from the hot Miami weather with some cool smoothies',2,3);
 
+INSERT INTO travellors.attraction (name,interesting_fact,attraction_description,city_id,business_license_number)
+VALUES ('8 Ball Pool','Fast Paced Round of 8 Ball Pool!','You want to play pool by the beach? Come over to 8 Ball Bool
+		to get your fix',2,1);
 
 # Add Values into the cubclasses of the Attraction class
 # Add values into Recreation
@@ -134,6 +137,10 @@ VALUES (8,"Club");
 
 INSERT INTO travellors.entertainment (attraction_id,entertainment_type)
 VALUES (9,"Movies");
+
+# Add values into other
+INSERT INTO travellors.other (attraction_id,type)
+VALUES (11,"Games");
 
 # Adding 5 tour guides
 INSERT INTO travellors.tour_guide (certification,first_name,last_name,years_of_experience,attraction_id,city_id)
@@ -381,12 +388,25 @@ VALUES (2,6);
 INSERT INTO travellors.book(tour_guide_id,tourist_uid)
 VALUES (3,10);
 
-# RATE TABLE IS EMPTY
-#########################
-###########################
-###########################
+# Adding values to 'RATES'
+INSERT INTO travellors.rate(local_uid,rater_uid)
+VALUES (1,2);
+INSERT INTO travellors.rate(local_uid,rater_uid)
+VALUES (3,4);
+INSERT INTO travellors.rate(local_uid,rater_uid)
+VALUES (5,4);
 
-# TRAVELS TO TABLE IS ALSO EMPTY
-#################################
-#################################
-################################
+# Adding values to 'TRAVELS TO'
+INSERT INTO travellors.travels_to(transportation_id,attraction_id,start_destination,end_destination)
+VALUES (1,1,"100 Ventura Drive","8080 Miami Beach Rd");
+INSERT INTO travellors.travels_to(transportation_id,attraction_id,start_destination,end_destination)
+VALUES (2,1,"100 Ventura Drive","8080 Miami Beach Rd");
+INSERT INTO travellors.travels_to(transportation_id,attraction_id,start_destination,end_destination)
+VALUES (3,1,"568 Coolio Street","8080 Miami Beach Rd");
+
+INSERT INTO travellors.travels_to(transportation_id,attraction_id,start_destination,end_destination)
+VALUES (1,2,"100 Ventura Drive","102 Palm Bay Street");
+INSERT INTO travellors.travels_to(transportation_id,attraction_id,start_destination,end_destination)
+VALUES (2,2,"100 Holled Up Drive","102 Palm Bay Street");
+INSERT INTO travellors.travels_to(transportation_id,attraction_id,start_destination,end_destination)
+VALUES (3,2,"568 Coolio Street","102 Palm Bay Street");

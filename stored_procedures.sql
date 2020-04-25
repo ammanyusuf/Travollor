@@ -137,7 +137,7 @@ DELIMITER ;
 # Output: the new rating of local 
 
 DELIMITER //
-DROP PROCEDURE IF EXISTS updateLocalRatings;
+DROP PROCEDURE IF EXISTS `updateLocalRatings`;
 CREATE PROCEDURE updateLocalRatings (
 	# Parameters
     IN uid INT,
@@ -145,18 +145,14 @@ CREATE PROCEDURE updateLocalRatings (
     OUT new_rating INT
 )
 BEGIN
-	
     UPDATE local
     SET rating = (updated_rating + rating)
     WHERE user_id = uid;
-    
     SELECT rating
     INTO new_rating
     FROM local
     WHERE local.user_id = uid;
-    
 END //
-
 DELIMITER ;
 
 # Use case 8: as a super local, i should be able to recruit/add other locals 
@@ -166,7 +162,7 @@ DELIMITER ;
 # Output: the user id of the newly inserted local
 
 DELIMITER //
-DROP PROCEDURE IF EXISTS addLocal;
+DROP PROCEDURE IF EXISTS `addLocal`;
 CREATE PROCEDURE addLocal (
 	# Parameters
     IN super_local_user_id INT,
@@ -194,7 +190,7 @@ DELIMITER ;
 # Parameters: int super_local_UID, int business_liscence_number, string name, string address, int city_id
 # Output: the business_liscence_number of the newly inserted local
 DELIMITER //
-DROP PROCEDURE IF EXISTS verifyLocalBusiness;
+DROP PROCEDURE IF EXISTS `verifyLocalBusiness`;
 CREATE PROCEDURE verifyLocalBusiness (
 	# Parameters
     IN super_local_UID_1 INT,
@@ -205,16 +201,12 @@ CREATE PROCEDURE verifyLocalBusiness (
     OUT out_bln INT
 )
 BEGIN
-	
-    INSERT INTO local_business (business_license_number,name,address,user_personal_information,city_id,super_local_uid)
-    VALUES (business_license_number1,name1,address1,"",city_id1,super_local_UID_1);
-    
+    INSERT INTO local_business (business_license_number,name,address,city_id,super_local_uid)
+    VALUES (business_license_number1,name1,address1,city_id1,super_local_UID_1);
     SELECT business_license_number INTO out_bln
     FROM local_business
     WHERE local_business.business_license_number = business_license_number1;
-    
 END //
-
 DELIMITER ;
 
 # POST: Endpoint for storing user (tourist and local) personal information which includes name and email address.  

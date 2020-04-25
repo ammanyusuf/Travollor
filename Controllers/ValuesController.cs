@@ -179,18 +179,23 @@ namespace ProjectTemp.Controllers
          [Route("PostAdd_Recommendation")]
          public ActionResult<IEnumerable<string>> PostAdd_Recommendation([FromBody] JObject rec)
          {
-                string title = rec["rtitle"].ToString();
-                DateTime creation_date= (DateTime)rec["rcreation_date"];
-                DateTime posting_time = (DateTime)rec["rposting_time"];
-                string tips = rec["rtips"].ToString();
-                string description = rec["rdescription"].ToString();
-                int attraction_id = (int)rec["rattraction_id"];
-                int city_id = (int)rec["rcity_id"];
-                int local_uid= (int)rec["rlocal_uid"];
-                DatabaseModel dbm = new DatabaseModel();
-                string res = dbm.PostAdd_Recommendation(title,creation_date,posting_time,tips,description,
-                attraction_id,city_id,local_uid);
-                return Ok(res.ToString());
+            // Retrieve the attributes from the json object to be passed through the function
+            string title = rec["rtitle"].ToString();
+            DateTime creation_date= (DateTime)rec["rcreation_date"];
+            DateTime posting_time = (DateTime)rec["rposting_time"];
+            string tips = rec["rtips"].ToString();
+            string description = rec["rdescription"].ToString();
+            int attraction_id = (int)rec["rattraction_id"];
+            int city_id = (int)rec["rcity_id"];
+            int local_uid= (int)rec["rlocal_uid"];
+
+            // Create a new DatabaseModel object
+            DatabaseModel dbm = new DatabaseModel();
+
+            // Execute the stored procedure and set the response from the stored procedure equal to res
+            string res = dbm.PostAdd_Recommendation(title,creation_date,posting_time,tips,description,
+                                                    attraction_id,city_id,local_uid);
+            return Ok(res.ToString());
         }
 
         /**
