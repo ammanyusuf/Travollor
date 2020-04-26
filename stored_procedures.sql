@@ -8,7 +8,8 @@
 # in the attractions relation
 # Expected Output: 
 # The expected output for this endpoint will be a message including information about the city such as the location and attractions
-
+USE `travellors`;
+DROP PROCEDURE IF EXISTS `infoAndFactsFromCity`;
 DELIMITER //
 
 CREATE PROCEDURE `infoAndFactsFromCity` (
@@ -33,6 +34,9 @@ DELIMITER ;
 # Use case 2) GET: Endpoint for retrieving the attraction that has the most recommendations. 
 # Setting post_rating >= 8 to be a good rating for a post
 
+USE `travellors`;
+DROP PROCEDURE IF EXISTS `attractionMostRecommendationsByCityID`;
+
 DELIMITER //
 
 CREATE PROCEDURE `attractionMostRecommendationsByCityID` (
@@ -51,6 +55,9 @@ DELIMITER ;
 
 # Use case 3) GET: Endpoint for retrieving locations where tour guides live based on the location tourists will visit. 
 
+USE `travellors`;
+DROP PROCEDURE IF EXISTS `tourGuidesByTouristCityID`;
+
 DELIMITER //
 
 CREATE PROCEDURE `tourGuidesByTouristCityID` (
@@ -66,6 +73,9 @@ END //
 DELIMITER ;
 
 # GET Method: get tourist's nationality
+
+USE `travellors`;
+DROP PROCEDURE IF EXISTS `touristNationality`;
 
 DELIMITER //
 CREATE PROCEDURE `touristNationality` ()
@@ -135,9 +145,10 @@ DELIMITER ;
 # PUT: enpoint for updating local ratings 
 # Parameters: int user_id, int rating
 # Output: the new rating of local 
-
-DELIMITER //
+USE `travellors`;
 DROP PROCEDURE IF EXISTS `updateLocalRatings`;
+DELIMITER //
+
 CREATE PROCEDURE updateLocalRatings (
 	# Parameters
     IN uid INT,
@@ -160,9 +171,9 @@ DELIMITER ;
 # POST: endpoint for adding a local, based on super local input.
 # Parameters: int super_local_user_id, int local_user_id, int city_id, boolean super_local_flag
 # Output: the user id of the newly inserted local
-
-DELIMITER //
+USE `travellors`;
 DROP PROCEDURE IF EXISTS `addLocal`;
+DELIMITER //
 CREATE PROCEDURE addLocal (
 	# Parameters
     IN super_local_user_id INT,
@@ -189,8 +200,9 @@ DELIMITER ;
 # POST: endpoint for adding a local business, based on super local input
 # Parameters: int super_local_UID, int business_liscence_number, string name, string address, int city_id
 # Output: the business_liscence_number of the newly inserted local
-DELIMITER //
+USE `travellors`;
 DROP PROCEDURE IF EXISTS `verifyLocalBusiness`;
+DELIMITER //
 CREATE PROCEDURE verifyLocalBusiness (
 	# Parameters
     IN super_local_UID_1 INT,
@@ -211,7 +223,8 @@ DELIMITER ;
 
 # POST: Endpoint for storing user (tourist and local) personal information which includes name and email address.  
 # As an admin I should be able to add users (tourists and loocals) so that only registered people can access the system.
-
+USE `travellors`;
+DROP PROCEDURE IF EXISTS `addUser`;
 DELIMITER //
 CREATE PROCEDURE `addUser` (
 	IN email_id varchar(255),
