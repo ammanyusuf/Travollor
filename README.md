@@ -8,7 +8,12 @@ Travollor is a Travel Management System that deals with tourists finding the bes
 * Application used to test our API endpoints: Postman
 
 ## Setup
-1. Clone this repository into your local computer: `git clone <URL>`
+1. Clone this repository into your local computer: `git clone https://github.com/ammanyusuf/Travollor.git`
+2. Download and go into "ProjectTemp.sln"
+    * Note: Microsoft Visual studio was used for this project. Other IDEs might also work :)
+3. Hit the run button:
+
+![alt text][Green-button.png](https://postimg.cc/Z9xJC58V)
 
 
 ## Group Members
