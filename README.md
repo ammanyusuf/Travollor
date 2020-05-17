@@ -8,7 +8,7 @@ Travollor is a Travel Management System that deals with tourists finding the bes
 * Application used to test our API endpoints: Postman
 
 ## Setup
-
+1. Clone this repository into your local computer: `git clone <URL>`
 
 
 ## Group Members
