@@ -12,9 +12,8 @@ Travollor is a Travel Management System that deals with tourists finding the bes
 2. Download and go into "ProjectTemp.sln"
     * Note: Microsoft Visual studio was used for this project. Other IDEs might also work :)
 3. Hit the run button
-   1. If build succedeed then visual studio is now running the application (there should be an orange bar at the bottom that says "Ready"
+   1. If build succedeed then visual studio is now running the application (there should be an orange bar at the bottom that says "Ready")
 4. A browser will now open in your default browser with the default API endpoint: GetValues --> gets the distinct tourist's nationality.
-
 
 ## Group Members
 * Isabella Guimet
