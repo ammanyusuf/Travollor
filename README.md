@@ -6,6 +6,7 @@ Travollor is a Travel Management System that deals with tourists finding the bes
 * Database Management System: MySQL
 * Framework to process web requests: ASP .NET 
 * Application used to test our API endpoints: Postman
+   * <a href="https://travollorskrt.postman.co/collections/11165259-4219dc20-1698-44ac-8ab9-112359846b1c?version=latest&workspace=da8fe5a3-2159-45f6-800e-fab0ba0c6fdc" target="">The link to a collection of endpoints showcasing the application's functionalities</a>
 
 ## Setup
 1. Clone this repository into your local computer: `git clone https://github.com/ammanyusuf/Travollor.git`
